@@ -29,97 +29,136 @@ const HorizontalWords = () => {
             // that the querySelectorAll will find nothing and the animation will gracefully skip.
             const arrows = container.querySelectorAll('.horizontal-words__arrow-svg path, .horizontal-words__arrow-end-svg path');
 
-            // --- ENTRANCE & PINNING LOGIC ---
-            // To make letters start animating as we scroll down from VimeoHero,
-            // we start the horizontal movement as soon as the section enters the viewport (top bottom).
-            const entranceDistance = window.innerHeight;
-            const pinnedDistance = 2500;
+            let mm = gsap.matchMedia();
 
-            const scrollTween = gsap.timeline({
-                scrollTrigger: {
+            mm.add("(min-width: 769px)", () => {
+                // --- DESKTOP: ENTRANCE & PINNING LOGIC ---
+                const entranceDistance = window.innerHeight;
+                const pinnedDistance = 2500;
+
+                const scrollTween = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top bottom",
+                        end: () => `+=${entranceDistance + pinnedDistance}`,
+                        scrub: 1,
+                        invalidateOnRefresh: true,
+                    }
+                });
+
+                scrollTween
+                    .fromTo(textRef, {
+                        x: window.innerWidth // Start words off-screen right
+                    }, {
+                        x: window.innerWidth * 0.5,
+                        ease: "none",
+                        duration: entranceDistance
+                    })
+                    .to(textRef, {
+                        x: () => -(textRef.scrollWidth - window.innerWidth * 0.5),
+                        ease: "none",
+                        duration: pinnedDistance
+                    });
+
+                // Separate pinning logic so it only locks when the section hits the top
+                ScrollTrigger.create({
                     trigger: container,
-                    start: "top bottom",
-                    end: () => `+=${entranceDistance + pinnedDistance}`,
-                    scrub: 1,
-                    invalidateOnRefresh: true,
-                }
-            });
-
-            scrollTween
-                .fromTo(textRef, {
-                    x: window.innerWidth // Start words off-screen right
-                }, {
-                    x: window.innerWidth * 0.5,
-                    ease: "none",
-                    duration: entranceDistance
-                })
-                .to(textRef, {
-                    x: () => -(textRef.scrollWidth - window.innerWidth * 0.5),
-                    ease: "none",
-                    duration: pinnedDistance
+                    start: "top top",
+                    end: () => `+=${pinnedDistance}`,
+                    pin: true,
+                    pinSpacing: true,
+                    invalidateOnRefresh: true
                 });
 
-            // Separate pinning logic so it only locks when the section hits the top
-            ScrollTrigger.create({
-                trigger: container,
-                start: "top top",
-                end: () => `+=${pinnedDistance}`,
-                pin: true,
-                pinSpacing: true,
-                invalidateOnRefresh: true
-            });
-            // ------------------------------------
-
-            // Bounce each letter randomly
-            letters.forEach((letter) => {
-                gsap.from(letter, {
-                    yPercent: (Math.random() - 0.5) * 500,
-                    rotation: (Math.random() - 0.5) * 60,
-                    ease: "elastic.out(1.2, 1)",
-                    scrollTrigger: {
-                        trigger: letter,
-                        containerAnimation: scrollTween,
-                        start: 'left 90%',
-                        end: 'left 50%', // Finish as it reaches center
-                        scrub: 0.5
-                    }
-                });
-            });
-
-            // Bounce stickers
-            stickers.forEach((sticker) => {
-                gsap.from(sticker, {
-                    scale: 0,
-                    yPercent: (Math.random() - 0.5) * 400,
-                    rotation: (Math.random() - 0.5) * 60,
-                    ease: "elastic.out(1.2, 1)",
-                    scrollTrigger: {
-                        trigger: sticker,
-                        containerAnimation: scrollTween,
-                        start: 'left 90%',
-                        end: 'left 50%', // Finish as it reaches center
-                        scrub: 0.5
-                    }
-                });
-            });
-
-            // Animate Drawing SVG Arrows 
-            arrows.forEach((arrowPath) => {
-                if (arrowPath.getTotalLength) {
-                    const pathLen = arrowPath.getTotalLength();
-                    gsap.set(arrowPath, { strokeDasharray: pathLen, strokeDashoffset: pathLen });
-                    gsap.to(arrowPath, {
-                        strokeDashoffset: 0,
-                        duration: 1,
+                // Bounce each letter randomly
+                letters.forEach((letter) => {
+                    gsap.from(letter, {
+                        yPercent: (Math.random() - 0.5) * 500,
+                        rotation: (Math.random() - 0.5) * 60,
+                        ease: "elastic.out(1.2, 1)",
                         scrollTrigger: {
-                            trigger: arrowPath.parentElement,
+                            trigger: letter,
                             containerAnimation: scrollTween,
                             start: 'left 90%',
-                            end: 'left 50%', // This is the last arrow's end point
+                            end: 'left 50%',
                             scrub: 0.5
                         }
                     });
-                }
+                });
+
+                // Bounce stickers
+                stickers.forEach((sticker) => {
+                    gsap.from(sticker, {
+                        scale: 0,
+                        yPercent: (Math.random() - 0.5) * 400,
+                        rotation: (Math.random() - 0.5) * 60,
+                        ease: "elastic.out(1.2, 1)",
+                        scrollTrigger: {
+                            trigger: sticker,
+                            containerAnimation: scrollTween,
+                            start: 'left 90%',
+                            end: 'left 50%',
+                            scrub: 0.5
+                        }
+                    });
+                });
+
+                // Animate Drawing SVG Arrows
+                arrows.forEach((arrowPath) => {
+                    if (arrowPath.getTotalLength) {
+                        const pathLen = arrowPath.getTotalLength();
+                        gsap.set(arrowPath, { strokeDasharray: pathLen, strokeDashoffset: pathLen });
+                        gsap.to(arrowPath, {
+                            strokeDashoffset: 0,
+                            duration: 1,
+                            scrollTrigger: {
+                                trigger: arrowPath.parentElement,
+                                containerAnimation: scrollTween,
+                                start: 'left 90%',
+                                end: 'left 50%',
+                                scrub: 0.5
+                            }
+                        });
+                    }
+                });
+            });
+
+            mm.add("(max-width: 768px)", () => {
+                // --- MOBILE: NO PINNING, VERTICAL SCROLL ONLY ---
+                // Reset horizontal position
+                gsap.set(textRef, { x: 0 });
+
+                // Bounce each letter randomly on normal vertical scroll
+                letters.forEach((letter) => {
+                    gsap.from(letter, {
+                        yPercent: (Math.random() - 0.5) * 200,
+                        rotation: (Math.random() - 0.5) * 30,
+                        opacity: 0,
+                        ease: "elastic.out(1.2, 1)",
+                        scrollTrigger: {
+                            trigger: container,
+                            start: 'top 80%',
+                            end: 'top 30%',
+                            scrub: 1
+                        }
+                    });
+                });
+
+                // Bounce stickers
+                stickers.forEach((sticker) => {
+                    gsap.from(sticker, {
+                        scale: 0,
+                        yPercent: (Math.random() - 0.5) * 200,
+                        rotation: (Math.random() - 0.5) * 30,
+                        ease: "elastic.out(1.2, 1)",
+                        scrollTrigger: {
+                            trigger: container,
+                            start: 'top 80%',
+                            end: 'top 30%',
+                            scrub: 1
+                        }
+                    });
+                });
             });
 
         }, sectionRef);

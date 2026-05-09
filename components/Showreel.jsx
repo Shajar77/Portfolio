@@ -25,75 +25,109 @@ export default function Showreel() {
       const introTitle = introContainerRef.current.querySelector(".showreel-intro-title");
       const introStickers = introContainerRef.current.querySelectorAll(".showreel-intro-sticker");
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: () => `+=${window.innerHeight * (slides.length * 2 + 2)}`,
-          pin: true,
-          scrub: 1,
-          invalidateOnRefresh: true,
-          onEnter: () => {
-            gsap.to(".navbar", { yPercent: -100, duration: 0.5, ease: "power2.inOut" });
-            window.dispatchEvent(new CustomEvent('run-scribble', { 
-              detail: { text: 'THE WORK', color: 'var(--color-darkblue)' } 
-            }));
-          },
-          onLeave: () => gsap.to(".navbar", { yPercent: 0, duration: 0.5, ease: "power2.inOut" }),
-          onEnterBack: () => gsap.to(".navbar", { yPercent: -100, duration: 0.5, ease: "power2.inOut" }),
-          onLeaveBack: () => gsap.to(".navbar", { yPercent: 0, duration: 0.5, ease: "power2.inOut" }),
-          onUpdate: (self) => {
-            if (progressLineRef.current) {
-              gsap.set(progressLineRef.current, { scaleX: self.progress });
-            }
-            if (progressSmileyRef.current) {
-              gsap.set(progressSmileyRef.current, { x: self.progress * window.innerWidth });
+      const mm = gsap.matchMedia();
+
+      // ─── DESKTOP: Full horizontal scroll + pinning ───────────────────
+      mm.add("(min-width: 769px)", () => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: () => `+=${window.innerHeight * (slides.length * 2 + 2)}`,
+            pin: true,
+            scrub: 1,
+            invalidateOnRefresh: true,
+            onEnter: () => {
+              gsap.to(".navbar", { yPercent: -100, duration: 0.5, ease: "power2.inOut" });
+              window.dispatchEvent(new CustomEvent('run-scribble', {
+                detail: { text: 'THE WORK', color: 'var(--color-darkblue)' }
+              }));
+            },
+            onLeave: () => gsap.to(".navbar", { yPercent: 0, duration: 0.5, ease: "power2.inOut" }),
+            onEnterBack: () => gsap.to(".navbar", { yPercent: -100, duration: 0.5, ease: "power2.inOut" }),
+            onLeaveBack: () => gsap.to(".navbar", { yPercent: 0, duration: 0.5, ease: "power2.inOut" }),
+            onUpdate: (self) => {
+              if (progressLineRef.current) gsap.set(progressLineRef.current, { scaleX: self.progress });
+              if (progressSmileyRef.current) gsap.set(progressSmileyRef.current, { x: self.progress * window.innerWidth });
             }
           }
-        }
+        });
+
+        // Intro Zoom Sequence
+        tl.fromTo(introContainerRef.current,
+          { width: "40vw", height: "25vw", border: "2px solid var(--color-dark)", backgroundColor: "transparent", opacity: 1 },
+          { width: "100vw", height: "100vh", border: "0px solid var(--color-dark)", backgroundColor: "var(--color-darkblue)", duration: 0.8, ease: "power2.inOut" }
+        );
+        tl.to(sectionRef.current, { backgroundColor: "var(--color-darkblue)", "--current-transition-text-color": "#ffffff", duration: 0.5 }, 0.5);
+
+        introStickers.forEach((sticker, i) => {
+          const xDir = i % 2 === 0 ? -150 : 150;
+          const yDir = i < 2 ? -150 : 150;
+          tl.to(sticker, { x: xDir, y: yDir, rotation: i % 2 === 0 ? -45 : 45, opacity: 0, duration: 0.5 }, 0.2);
+        });
+
+        tl.to(introTitle, { opacity: 0, scale: 1.2, duration: 0.4 }, 0.4);
+        tl.to(parallaxRef.current, { opacity: 0.25, duration: 0.5 }, 0.5);
+        tl.to(introContainerRef.current, { opacity: 0, duration: 0.4 }, 0.8);
+        tl.to(".showreel-top-progress", { opacity: 1, duration: 0.5 }, 0.8);
+        tl.addLabel("scroll", 1.0);
+        tl.to(horizontalWrapperRef.current, { opacity: 1, duration: 0.3 }, "scroll");
+        tl.to(horizontalWrapperRef.current, {
+          x: () => -(window.innerWidth * (slides.length - 1)),
+          ease: "none",
+          duration: (slides.length + 1) * 2,
+        }, "scroll");
+        rows.forEach((row, i) => {
+          const direction = i % 2 === 0 ? 1 : -1;
+          tl.to(row, { x: direction * 600, ease: "none", duration: (slides.length + 1) * 2 }, "scroll");
+        });
       });
 
-      // Intro Zoom Sequence
-      tl.fromTo(introContainerRef.current, 
-        { width: "40vw", height: "25vw", border: "2px solid var(--color-dark)", backgroundColor: "transparent", opacity: 1 },
-        { width: "100vw", height: "100vh", border: "0px solid var(--color-dark)", backgroundColor: "var(--color-darkblue)", duration: 0.8, ease: "power2.inOut" }
-      );
+      // ─── MOBILE: Intro zoom + vertical stacking, no pin ──────────────
+      mm.add("(max-width: 768px)", () => {
+        // Make the horizontal wrapper visible immediately on mobile
+        gsap.set(horizontalWrapperRef.current, { opacity: 1, x: 0 });
 
-      tl.to(sectionRef.current, { 
-        backgroundColor: "var(--color-darkblue)", 
-        "--current-transition-text-color": "#ffffff",
-        duration: 0.5 
-      }, 0.5);
+        // Simple intro zoom that triggers on scroll (no pin)
+        const introTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            end: "top 20%",
+            scrub: 1,
+          }
+        });
 
-      introStickers.forEach((sticker, i) => {
-        const xDir = i % 2 === 0 ? -150 : 150;
-        const yDir = i < 2 ? -150 : 150;
-        tl.to(sticker, { x: xDir, y: yDir, rotation: i % 2 === 0 ? -45 : 45, opacity: 0, duration: 0.5 }, 0.2);
+        introTl.fromTo(introContainerRef.current,
+          { width: "80vw", height: "50vw", border: "2px solid var(--color-dark)", backgroundColor: "transparent", opacity: 1 },
+          { width: "100vw", height: "56vw", border: "0px solid var(--color-dark)", backgroundColor: "var(--color-darkblue)", duration: 0.8, ease: "power2.inOut" }
+        );
+        introTl.to(sectionRef.current, { backgroundColor: "var(--color-darkblue)", duration: 0.5 }, 0.3);
+        introStickers.forEach((sticker, i) => {
+          const xDir = i % 2 === 0 ? -80 : 80;
+          const yDir = i < 2 ? -80 : 80;
+          introTl.to(sticker, { x: xDir, y: yDir, opacity: 0, duration: 0.4 }, 0.1);
+        });
+        introTl.to(introTitle, { opacity: 0, scale: 1.1, duration: 0.3 }, 0.3);
+        introTl.to(introContainerRef.current, { opacity: 0, duration: 0.3 }, 0.6);
+
+        // Fade in each slide as user scrolls into it
+        slides.forEach((slide) => {
+          gsap.fromTo(slide,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1, y: 0, duration: 0.6, ease: "power2.out",
+              scrollTrigger: {
+                trigger: slide,
+                start: "top 85%",
+                end: "top 50%",
+                scrub: false,
+                toggleActions: "play none none reverse"
+              }
+            }
+          );
+        });
       });
-
-      tl.to(introTitle, { opacity: 0, scale: 1.2, duration: 0.4 }, 0.4);
-      tl.to(parallaxRef.current, { opacity: 0.25, duration: 0.5 }, 0.5);
-      tl.to(introContainerRef.current, { opacity: 0, duration: 0.4 }, 0.8);
-
-      tl.to(".showreel-top-progress", { opacity: 1, duration: 0.5 }, 0.8);
-
-      tl.addLabel("scroll", 1.0);
-
-      tl.to(horizontalWrapperRef.current, { opacity: 1, duration: 0.3 }, "scroll");
-
-      tl.to(horizontalWrapperRef.current, {
-        x: () => -(window.innerWidth * (slides.length - 1)),
-        ease: "none",
-        duration: (slides.length + 1) * 2,
-      }, "scroll");
-
-      rows.forEach((row, i) => {
-        const direction = i % 2 === 0 ? 1 : -1;
-        tl.to(row, { x: direction * 600, ease: "none", duration: (slides.length + 1) * 2 }, "scroll");
-      });
-
-      // REMOVED individual slide reveals to ensure images are always visible
-      // slides.forEach((slide, i) => { ... });
 
     }, sectionRef);
 

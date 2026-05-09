@@ -313,26 +313,88 @@
     font-size: 12vw;
     letter-spacing: -1px;
   }
-  
+
   .showreel-intro-sticker {
     width: 12vw;
   }
-  
+
   .showreel-parallax-row {
     font-size: 12vw;
   }
-  
+
+  /* Override the 100vh fixed section to auto height for vertical stacking */
+  .showreel-section {
+    height: auto;
+    min-height: auto;
+    display: block;
+    overflow: visible;
+  }
+
+  /* The intro container sits at the top and shrinks naturally */
+  .showreel-intro-container {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 80vw;
+    height: 50vw;
+    margin: 60px auto 0;
+  }
+
+  /* Parallax bg is hidden on mobile — too expensive and not visible */
+  .showreel-parallax-bg {
+    display: none;
+  }
+
+  /* Progress bar hidden on mobile (not pinned, progress doesn't make sense) */
+  .showreel-top-progress {
+    display: none;
+  }
+
+  /* Stack slides vertically instead of side-by-side */
+  .showreel-horizontal-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    will-change: auto;
+    margin-top: 20px;
+  }
+
+  /* Each slide is now a full-width vertical block */
+  .showreel-slide {
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    padding: 20px 16px 40px;
+    flex-shrink: 0;
+  }
+
+  .showreel-slide.is--spacer {
+    display: none;
+  }
+
+  .showreel-slide-inner {
+    padding-top: 0;
+    height: auto;
+  }
+
   .showreel-slide-img-wrapper {
     max-width: 95vw;
-    max-height: 40vh;
+    max-height: 52vw;
+    width: 95vw;
   }
-  
+
   .showreel-item-title {
     font-size: 2rem;
   }
-  
+
   .showreel-item-desc {
     font-size: 0.95rem;
     padding: 0 1rem;
+  }
+
+  .showreel-slide-text {
+    margin-top: 1.5rem;
   }
 }
