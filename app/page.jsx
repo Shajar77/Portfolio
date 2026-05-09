@@ -2,11 +2,11 @@
 
 import dynamic from 'next/dynamic';
 import SvgSymbols from '@/components/SvgSymbols';
-import Navbar from '@/components/Navbar';
-import VimeoHero from '@/components/VimeoHero';
-import SmoothScroll from '@/components/SmoothScroll';
 
-// Lazily loaded — these are all below-the-fold or non-critical for LCP
+// Eagerly import only the hero video (the LCP element) — everything else is deferred
+const VimeoHero = dynamic(() => import('@/components/VimeoHero'), { ssr: false });
+const Navbar = dynamic(() => import('@/components/Navbar'), { ssr: false });
+const SmoothScroll = dynamic(() => import('@/components/SmoothScroll'), { ssr: false });
 const HorizontalWords = dynamic(() => import('@/components/HorizontalWords'), { ssr: false });
 const MotionCards = dynamic(() => import('@/components/MotionCards'), { ssr: false });
 const Showreel = dynamic(() => import('@/components/Showreel'), { ssr: false });
@@ -20,8 +20,6 @@ export default function Home() {
     return (
         <>
             <SvgSymbols />
-            <SmoothScroll />
-            <CursorBubble />
             <header className="main-header">
                 <Navbar />
                 <VimeoHero />
@@ -43,6 +41,9 @@ export default function Home() {
                 <Footer />
             </footer>
             <TransitionScribble />
+            {/* Non-visual utilities loaded last */}
+            <SmoothScroll />
+            <CursorBubble />
         </>
     );
 }
