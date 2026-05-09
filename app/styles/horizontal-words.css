@@ -22,6 +22,7 @@
     white-space: nowrap;
     display: flex;
     align-items: center;
+    will-change: transform; /* GPU hint for GSAP horizontal scroll */
 }
 
 .horizontal-words__arrow-svg {
@@ -36,13 +37,14 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, 9em);
+    transform: translate(-50%, clamp(4em, 9em, 10em));
     width: max-content;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 20;
+    max-width: 90vw; /* Prevent overflow on narrow screens */
 }
 
 .horizontal-words__bottom-text-l {
@@ -148,12 +150,14 @@
     }
     
     .horizontal-words__bottom-text {
-        transform: translate(-50%, 6em);
+        transform: translate(-50%, clamp(3em, 6em, 7em));
+        max-width: 92vw;
     }
     
     .horizontal-words__bottom-text-l {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         width: 90vw;
+        max-width: 90vw;
     }
     
     .horizontal-words__arrow-svg {
@@ -164,6 +168,31 @@
     .horizontal-words__sticker-cursor,
     .horizontal-words__sticker-phone,
     .horizontal-words__sticker-watch {
-        transform: translate(-50%, -80%) scale(0.7);
+        transform: translate(-50%, -80%) scale(0.6);
+    }
+}
+
+/* ─── Very Small Phones (≤ 480px) ───────────────────────────────────────── */
+@media (max-width: 480px) {
+    .horizontal-words__h2 {
+        font-size: 20vw;
+    }
+
+    .horizontal-words__bottom-text {
+        transform: translate(-50%, clamp(2em, 4em, 5em));
+    }
+
+    .horizontal-words__bottom-text-l {
+        font-size: 0.8rem;
+    }
+
+    .horizontal-words__sticker-cursor,
+    .horizontal-words__sticker-phone,
+    .horizontal-words__sticker-watch {
+        transform: translate(-50%, -80%) scale(0.4);
+    }
+
+    .horizontal-words__arrow-svg {
+        width: 8em;
     }
 }

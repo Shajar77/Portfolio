@@ -27,12 +27,25 @@ export default function SmoothScroll() {
         };
         document.addEventListener('visibilitychange', handleVisibility);
 
+        // Auto-refresh ScrollTrigger when DOM layout changes (dynamic imports, image loads, etc)
+        // Debounced with rAF to avoid thrashing on rapid resize events
+        let rafId = null;
+        const resizeObserver = new ResizeObserver(() => {
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(() => {
+                ScrollTrigger.refresh();
+            });
+        });
+        resizeObserver.observe(document.body);
+
         // Store lenis on window so other components can access it
         window.__lenis = lenis;
 
         return () => {
             lenis.destroy();
             document.removeEventListener('visibilitychange', handleVisibility);
+            resizeObserver.disconnect();
+            if (rafId) cancelAnimationFrame(rafId);
             delete window.__lenis;
         };
     }, []);

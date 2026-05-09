@@ -160,10 +160,12 @@
 
 .marquee-column:nth-child(1) .marquee-track {
     animation: marqueeUp 22s linear infinite;
+    will-change: transform;
 }
 
 .marquee-column:nth-child(2) .marquee-track {
     animation: marqueeDown 22s linear infinite;
+    will-change: transform;
 }
 
 @keyframes marqueeUp {

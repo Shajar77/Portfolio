@@ -111,6 +111,7 @@
     overflow: clip;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
     flex-shrink: 0;
+    will-change: transform; /* GPU hint for GSAP inertia animations */
 }
 
 .motion-card__card-image {
@@ -183,6 +184,7 @@
     z-index: 10;
     transform: translate(-50%, -50%);
     white-space: nowrap;
+    will-change: transform; /* GPU hint for GSAP inertia animations */
 }
 
 .motion-card__floating-text {

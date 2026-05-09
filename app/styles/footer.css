@@ -158,9 +158,9 @@
 }
 
 .footer-logo__svg {
-    width: 104.9%;
+    width: 100%; /* Fixed: was 104.9% causing a horizontal overflow */
     height: auto;
-    margin-left: -2.5%;
+    margin-left: 0;
 }
 
 .footer-bottom-row {

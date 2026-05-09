@@ -69,9 +69,27 @@ body {
 html {
     scrollbar-width: none;
     -ms-overflow-style: none;
+    overflow-x: hidden; /* Prevent horizontal scroll on all screens */
 }
 
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
     display: none;
+}
+
+/* ─── Global overflow safety ───────────────────────────────────────────── */
+img,
+video,
+svg,
+iframe {
+    max-width: 100%;
+}
+
+/* ─── GPU acceleration hints for key animated elements ─────────────────── */
+.navbar {
+    will-change: transform, color;
+}
+
+.cursor-bubble {
+    will-change: transform, opacity;
 }

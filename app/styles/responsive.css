@@ -22,6 +22,39 @@
         min-height: 400px;
         margin-bottom: 20px;
     }
+
+    /* Motion cards heading — scale down for tablet */
+    .motion-card__title {
+        font-size: 5rem;
+    }
+
+    .motion-card__subtitle {
+        font-size: 5.5rem;
+    }
+
+    /* Motion cards area — use min-height instead of fixed height on tablet */
+    .motion-card__cards-area {
+        height: auto;
+        min-height: 400px;
+    }
+
+    /* Motion card widths respond to viewport on tablet */
+    .motion-card__card {
+        width: 22vw;
+        height: 28vw;
+    }
+
+    /* Marquee section — fit in single column on tablet */
+    .Double-marquee {
+        padding: 40px 30px;
+        gap: 30px;
+    }
+
+    .marquee-right {
+        width: 380px;
+        height: 650px;
+        margin-right: 0;
+    }
 }
 
 /* ─── Medium screens (≤ 900px) ───────────────────────────────────────────── */
@@ -97,6 +130,30 @@
 
     .title-container {
         margin-bottom: 50px;
+    }
+
+    /* ── Motion Cards Section ────────── */
+    .motion-card__title {
+        font-size: 3.5rem;
+        letter-spacing: -3px;
+    }
+
+    .motion-card__subtitle {
+        font-size: 4rem;
+    }
+
+    .motion-card-section {
+        padding: 40px 20px 60px;
+    }
+
+    .motion-card__cards-area {
+        height: auto;
+        min-height: 320px;
+    }
+
+    .motion-card__card {
+        width: 38vw;
+        height: 50vw;
     }
 
     /* ── Cards (GSAP-controlled) ─────── */
@@ -188,7 +245,7 @@
         width: 100%;
         height: auto;
         margin-right: 0;
-        padding: 20px 24px 32px;
+        padding: 20px 0 32px;
         overflow-x: auto;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
@@ -199,6 +256,7 @@
         display: none;
     }
 
+    /* ─── Fix marquee columns layout on mobile ─── */
     .marquee-column {
         display: contents;
     }
@@ -301,8 +359,8 @@
     }
 
     .footer-logo__svg {
-        width: 110%;
-        margin-left: -5%;
+        width: 100%;
+        margin-left: 0;
     }
 
     /* ── Credits badge ──────────────── */
@@ -326,5 +384,84 @@
 
     .credits-name {
         font-size: 0.95rem;
+    }
+}
+
+/* ─── Very Small Phones (≤ 480px) ────────────────────────────────────────── */
+@media (max-width: 480px) {
+
+    /* ── Navbar ─────────────────────── */
+    .navbar {
+        padding: 12px 14px;
+    }
+
+    /* ── Hero ────────────────────────── */
+    .vimeo-hero__title {
+        font-size: clamp(1.8rem, 9vw, 3.5rem);
+    }
+
+    /* ── Motion Cards ────────────────── */
+    .motion-card__title {
+        font-size: 2.8rem;
+        letter-spacing: -2px;
+    }
+
+    .motion-card__subtitle {
+        font-size: 3.2rem;
+    }
+
+    .motion-card-section {
+        padding: 30px 14px 50px;
+    }
+
+    .motion-card__card {
+        width: 44vw;
+        height: 58vw;
+    }
+
+    /* ── Service Cards ─────────────────── */
+    .card {
+        width: 90vw;
+        max-width: 320px;
+    }
+
+    /* ── Marquee ─────────────────────── */
+    .marquee-left h2 {
+        font-size: 2rem;
+        letter-spacing: -1px;
+    }
+
+    .marquee-right {
+        grid-template-rows: 110px 110px;
+        grid-auto-columns: 110px;
+    }
+
+    .marquee-item {
+        width: 110px;
+        height: 110px;
+    }
+
+    /* ── Footer ─────────────────────── */
+    .footer-inner {
+        padding: 40px 16px 24px;
+    }
+
+    .footer-column h3 {
+        font-size: 1.2rem;
+    }
+
+    .footer-column address {
+        font-size: 1.1rem;
+    }
+
+    .footer-email,
+    .footer-whatsapp {
+        font-size: 1.1rem;
+    }
+
+    /* Hide some footer stickers on very small screens to avoid clutter */
+    .sticker-heart,
+    .footer-sticker.sticker-100 {
+        display: none;
     }
 }

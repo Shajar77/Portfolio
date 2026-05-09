@@ -1,6 +1,8 @@
 import './globals.css';
+import ClientProviders from '@/components/ClientProviders';
 
 export const metadata = {
+    metadataBase: new URL('https://shajar-portfolio.vercel.app'),
     title: 'Shajar Ali — Creative Frontend & Blockchain Developer',
     description: 'Portfolio of Shajar Ali — a Creative Frontend and Blockchain Developer with 6+ years of experience building high-end, interactive digital experiences and Web3 applications.',
     keywords: ['frontend developer', 'blockchain developer', 'web3', 'Next.js', 'GSAP', 'Solidity', 'portfolio'],
@@ -40,15 +42,33 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <head>
+                {/* Preload fonts to prevent flash of unstyled text (FOUT) */}
+                <link
+                    rel="preload"
+                    href="/fonts/DMSans-VariableFont_opsz,wght.ttf"
+                    as="font"
+                    type="font/ttf"
+                    crossOrigin="anonymous"
+                />
+                <link
+                    rel="preload"
+                    href="/fonts/Epilogue-VariableFont_wght.ttf"
+                    as="font"
+                    type="font/ttf"
+                    crossOrigin="anonymous"
+                />
                 {/* Preload the hero video so LCP is discovered immediately */}
                 <link
                     rel="preload"
-                    href="/20563164-uhd_3840_2160_30fps.mp4"
+                    href="/20563164-uhd_3840_2160_30fps (1).mp4"
                     as="video"
                     type="video/mp4"
                 />
             </head>
-            <body suppressHydrationWarning>{children}</body>
+            <body suppressHydrationWarning>
+                {children}
+                <ClientProviders />
+            </body>
         </html>
     );
 }
