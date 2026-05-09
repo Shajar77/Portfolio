@@ -177,7 +177,15 @@ export default function Showreel() {
             <a href={image.url} target="_blank" rel="noopener noreferrer" className="showreel-slide-link">
               <div className="showreel-slide-inner">
                 <div className="showreel-slide-img-wrapper">
-                  <img src={image.src} className="showreel-slide-img" alt={image.alt} />
+                  <img
+                    src={image.src}
+                    className="showreel-slide-img"
+                    alt={image.alt}
+                    width={1280}
+                    height={720}
+                    loading="lazy"
+                    decoding="async"
+                  />
                   <div className="showreel-visit-overlay">
                     <span>
                       VISIT PROJECT

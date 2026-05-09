@@ -173,6 +173,8 @@ export default function VimeoHero() {
                     loop
                     muted
                     playsInline
+                    preload="auto"
+                    fetchPriority="high"
                     className="vimeo-hero__iframe"
                     style={{ objectFit: 'cover' }}
                 />

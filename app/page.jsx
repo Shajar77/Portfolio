@@ -1,18 +1,20 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import SvgSymbols from '@/components/SvgSymbols';
 import Navbar from '@/components/Navbar';
 import VimeoHero from '@/components/VimeoHero';
-import ServiceCards from '@/components/ServiceCards';
-import MotionCards from '@/components/MotionCards';
-import Showreel from '@/components/Showreel';
-import DoubleMarquee from '@/components/DoubleMarquee';
-import Footer from '@/components/Footer';
-import TransitionScribble from '@/components/TransitionScribble';
-import CursorBubble from '@/components/CursorBubble';
 import SmoothScroll from '@/components/SmoothScroll';
 
-import HorizontalWords from '@/components/HorizontalWords';
+// Lazily loaded — these are all below-the-fold or non-critical for LCP
+const HorizontalWords = dynamic(() => import('@/components/HorizontalWords'), { ssr: false });
+const MotionCards = dynamic(() => import('@/components/MotionCards'), { ssr: false });
+const Showreel = dynamic(() => import('@/components/Showreel'), { ssr: false });
+const ServiceCards = dynamic(() => import('@/components/ServiceCards'), { ssr: false });
+const DoubleMarquee = dynamic(() => import('@/components/DoubleMarquee'), { ssr: false });
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: false });
+const TransitionScribble = dynamic(() => import('@/components/TransitionScribble'), { ssr: false });
+const CursorBubble = dynamic(() => import('@/components/CursorBubble'), { ssr: false });
 
 export default function Home() {
     return (
