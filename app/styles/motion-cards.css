@@ -232,3 +232,87 @@
     letter-spacing: -0.2px;
     cursor: url("/assets/Cursor SVG/cursor-text.svg") 12 12, auto;
 }
+
+/* ─── Responsive Media Queries ───────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+    .motion-card-section {
+        padding: 40px 30px 80px;
+    }
+    
+    .motion-card__title {
+        font-size: 5rem;
+        letter-spacing: -3px;
+    }
+    
+    .motion-card__subtitle {
+        font-size: 5.5rem;
+        top: -20px;
+    }
+    
+    .motion-card__card {
+        width: 22vw;
+        height: 28vw;
+    }
+    
+    .motion-card__blob {
+        width: 450px;
+        height: 400px;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .motion-card-section {
+        padding: 30px 15px 60px;
+    }
+    
+    .motion-card__title {
+        font-size: 3rem;
+        letter-spacing: -1.5px;
+        line-height: 1;
+    }
+    
+    .motion-card__subtitle {
+        font-size: 3.5rem;
+        top: -10px;
+        letter-spacing: -1px;
+    }
+    
+    .motion-card__sticker--top {
+        width: 60px;
+        height: auto;
+        right: -30px;
+        top: -50px;
+    }
+    
+    .motion-card__cards-area {
+        height: 350px;
+        margin: 20px auto 40px;
+    }
+    
+    .motion-card__card {
+        width: 35vw;
+        height: 45vw;
+    }
+    
+    /* Adjust specific card positions for mobile */
+    .motion-card__card--1 { margin-right: -10vw; transform: rotate(-4deg); }
+    .motion-card__card--2 { margin-right: -10vw; left: -1rem; bottom: -1rem; }
+    .motion-card__card--3 { margin-right: -10vw; left: -1.5rem; transform: rotate(-4deg); }
+    .motion-card__card--4 { left: -2rem; bottom: -1rem; }
+    
+    .motion-card__blob {
+        width: 300px;
+        height: 260px;
+    }
+    
+    .motion-card__floating-text {
+        font-size: 0.8rem;
+    }
+    
+    .motion-card__description {
+        font-size: 1.1rem;
+        line-height: 1.5;
+    }
+}

@@ -109,10 +109,15 @@
     }
 
     .card {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
         width: 82vw;
         max-width: 340px;
         min-height: 420px;
         height: auto;
+        margin: 0 auto 30px !important;
     }
 
     .card-sticker {
