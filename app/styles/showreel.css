@@ -271,7 +271,7 @@
 
 .showreel-item-title {
   font-family: 'Epilogue', sans-serif;
-  color: var(--color-orange);
+  color: var(--current-transition-text-color, var(--color-dark));
   font-size: 3rem;
   font-weight: 800;
   text-transform: uppercase;

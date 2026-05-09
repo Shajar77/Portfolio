@@ -102,7 +102,11 @@ export default function Showreel() {
         { width: "100vw", height: "100vh", border: "0px solid var(--color-dark)", backgroundColor: "var(--color-darkblue)", duration: 0.8, ease: "power2.inOut" }
       );
 
-      tl.to(sectionRef.current, { backgroundColor: "var(--color-darkblue)", duration: 0.5 }, 0.5);
+      tl.to(sectionRef.current, { 
+        backgroundColor: "var(--color-darkblue)", 
+        "--current-transition-text-color": "#ffffff",
+        duration: 0.5 
+      }, 0.5);
 
       introStickers.forEach((sticker, i) => {
         const xDir = i % 2 === 0 ? -150 : 150;
