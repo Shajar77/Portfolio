@@ -19,14 +19,14 @@ export default function AboutHero() {
                                 />
                             </div>
                             <div className="about-status-tag">AVAILABLE FOR FREELANCE</div>
-                            <img src="/assets/Footer-Sticker SVG/footer-sticker-camera.svg" className="about-sticker about-sticker--camera wiggle-element" alt="" style={{ filter: 'invert(1)' }} aria-hidden="true" />
+                            <Image src="/assets/Footer-Sticker SVG/footer-sticker-camera.svg" width={100} height={100} className="about-sticker about-sticker--camera wiggle-element" alt="" style={{ filter: 'invert(1)' }} aria-hidden="true" />
                         </div>
                     </div>
 
                     <div className="about-hero__right">
                         <h1 className="about-hero__title">
                             SHAJAR ALI
-                            <img src="/assets/Footer-Sticker SVG/footer-sticker-smiley.svg" className="about-hero__smiley wiggle-element" alt="" aria-hidden="true" />
+                            <Image src="/assets/Footer-Sticker SVG/footer-sticker-smiley.svg" width={80} height={80} className="about-hero__smiley wiggle-element" alt="" aria-hidden="true" />
                         </h1>
                         <div className="about-hero__intro">
                             <h2 className="about-hero__intro-text">
@@ -45,7 +45,7 @@ export default function AboutHero() {
             </div>
 
             <div className="about-hero__bg-blob" aria-hidden="true">
-                <img src="/assets/Service SVG/Service-card-pink-SVG.svg" alt="" />
+                <Image src="/assets/Service SVG/Service-card-pink-SVG.svg" width={600} height={600} alt="" />
             </div>
             <div className="about-hero__bg-grid" aria-hidden="true"></div>
         </section>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 export default function ExpertiseFan() {
     return (
@@ -10,7 +11,7 @@ export default function ExpertiseFan() {
                 <div className="expertise-fan">
                     {/* Frontend */}
                     <div className="expertise-fan-card expertise-fan-card--teal">
-                        <img src="/assets/Card-Sticker SVG/sticker-camera.svg" className="fan-card__sticker fan-card__sticker--camera" alt="" />
+                        <Image src="/assets/Card-Sticker SVG/sticker-camera.svg" width={150} height={150} className="fan-card__sticker fan-card__sticker--camera" alt="" aria-hidden="true" />
                         <h3 className="fan-card__title">frontend</h3>
                         <div className="fan-card__divider"></div>
                         <ul className="fan-card__list">
@@ -25,7 +26,7 @@ export default function ExpertiseFan() {
 
                     {/* Blockchain */}
                     <div className="expertise-fan-card expertise-fan-card--blue">
-                        <img src="/assets/Card-Sticker SVG/sticker-phone.svg" className="fan-card__sticker fan-card__sticker--phone" alt="" />
+                        <Image src="/assets/Card-Sticker SVG/sticker-phone.svg" width={150} height={150} className="fan-card__sticker fan-card__sticker--phone" alt="" aria-hidden="true" />
                         <h3 className="fan-card__title">blockchain</h3>
                         <div className="fan-card__divider"></div>
                         <ul className="fan-card__list">
@@ -38,7 +39,7 @@ export default function ExpertiseFan() {
 
                     {/* Full Stack */}
                     <div className="expertise-fan-card expertise-fan-card--orange">
-                        <img src="/assets/Card-Sticker SVG/sticker-smiley.svg" className="fan-card__sticker fan-card__sticker--smiley" alt="" />
+                        <Image src="/assets/Card-Sticker SVG/sticker-smiley.svg" width={150} height={150} className="fan-card__sticker fan-card__sticker--smiley" alt="" aria-hidden="true" />
                         <h3 className="fan-card__title">full stack</h3>
                         <div className="fan-card__divider"></div>
                         <ul className="fan-card__list">
@@ -53,7 +54,7 @@ export default function ExpertiseFan() {
 
                     {/* Creative */}
                     <div className="expertise-fan-card expertise-fan-card--maroon">
-                        <img src="/assets/Card-Sticker SVG/sticker-hand.svg" className="fan-card__sticker fan-card__sticker--hand" alt="" />
+                        <Image src="/assets/Card-Sticker SVG/sticker-hand.svg" width={150} height={150} className="fan-card__sticker fan-card__sticker--hand" alt="" aria-hidden="true" />
                         <h3 className="fan-card__title">creative</h3>
                         <div className="fan-card__divider"></div>
                         <ul className="fan-card__list">
@@ -68,7 +69,7 @@ export default function ExpertiseFan() {
 
                     {/* Expertise */}
                     <div className="expertise-fan-card expertise-fan-card--purple">
-                        <img src="/assets/Card-Sticker SVG/sticker-heart.svg" className="fan-card__sticker fan-card__sticker--heart" alt="" />
+                        <Image src="/assets/Card-Sticker SVG/sticker-heart.svg" width={150} height={150} className="fan-card__sticker fan-card__sticker--heart" alt="" aria-hidden="true" />
                         <h3 className="fan-card__title">expertise</h3>
                         <div className="fan-card__divider"></div>
                         <ul className="fan-card__list">

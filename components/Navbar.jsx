@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import { WIGGLE_CONFIG } from '@/lib/data';
 import { initWiggle } from '@/lib/utils';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 export default function Navbar({ forceTheme }) {
@@ -289,7 +290,7 @@ export default function Navbar({ forceTheme }) {
                 <div className="nav-left" style={{ cursor: "url('/assets/Cursor SVG/cursor-pointer.svg') 12 12, pointer", display: 'flex', gap: '30px', alignItems: 'center' }}>
                     <div className="nav-hover-trigger">
                         <div className="logo-work-container">
-                            <img src="/assets/Navbar SVG/nav-work-blob.svg" width="60" height="55" className="nav-bar__work-blob-svg" alt="" aria-hidden="true" />
+                            <Image src="/assets/Navbar SVG/nav-work-blob.svg" width={60} height={55} className="nav-bar__work-blob-svg" alt="" aria-hidden="true" />
                             <span className="logo-work-text">work</span>
                         </div>
 
@@ -298,7 +299,7 @@ export default function Navbar({ forceTheme }) {
                             <div className="nav-popout-inner">
                                 <div className="nav-work-item">
                                     <div className="nav-work-item__img-wrap">
-                                        <img src="https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/68a46f25779a71fac3a11903_SnapInsta.jpg" loading="eager" alt="Feestje bouwe? App Douwe" className="nav-work-item__img" />
+                                        <Image src="https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/68a46f25779a71fac3a11903_SnapInsta.jpg" loading="eager" width={400} height={300} alt="Feestje bouwe? App Douwe" className="nav-work-item__img" />
                                     </div>
                                     <div className="nav-work-item__text">
                                         <span className="nav-work-badge badge-maroon">douwe egberts</span>
@@ -307,7 +308,7 @@ export default function Navbar({ forceTheme }) {
                                 </div>
                                 <div className="nav-work-item">
                                     <div className="nav-work-item__img-wrap">
-                                        <img src="https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/6880a344675f3a6144ed04df_01_HEMA_Back2School.avif" loading="eager" alt="Skibidi school" sizes="100vw" srcSet="https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/6880a344675f3a6144ed04df_01_HEMA_Back2School-p-500.avif 500w, https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/6880a344675f3a6144ed04df_01_HEMA_Back2School.avif 1080w" className="nav-work-item__img" />
+                                        <Image src="https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/6880a344675f3a6144ed04df_01_HEMA_Back2School.avif" loading="eager" width={400} height={300} alt="Skibidi school" className="nav-work-item__img" />
                                     </div>
                                     <div className="nav-work-item__text">
                                         <span className="nav-work-badge badge-pink">hema</span>
@@ -316,7 +317,7 @@ export default function Navbar({ forceTheme }) {
                                 </div>
                                 <div className="nav-work-item">
                                     <div className="nav-work-item__img-wrap">
-                                        <img src="https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/686b7e0ed3ab3045b28a2012_3.avif" loading="eager" alt="Hema socials" sizes="100vw" srcSet="https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/686b7e0ed3ab3045b28a2012_3-p-500.avif 500w, https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/686b7e0ed3ab3045b28a2012_3.avif 1080w" className="nav-work-item__img" />
+                                        <Image src="https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/686b7e0ed3ab3045b28a2012_3.avif" loading="eager" width={400} height={300} alt="Hema socials" className="nav-work-item__img" />
                                     </div>
                                     <div className="nav-work-item__text">
                                         <span className="nav-work-badge badge-pink">hema</span>
@@ -340,7 +341,7 @@ export default function Navbar({ forceTheme }) {
                         {/* Pop-out Box for Right Side */}
                         <div className="nav-popout nav-wa-box">
                             <div className="nav-popout-inner">
-                                <img src="/assets/wa_qr_code.png" className="nav-wa-qr" alt="WhatsApp QR Code" />
+                                <Image src="/assets/wa_qr_code.png" width={150} height={150} className="nav-wa-qr" alt="WhatsApp QR Code" />
                                 <h4 className="nav-wa-title">whatsapp us</h4>
                                 <p className="nav-wa-desc">Scan the QR code to chat with us via your smartphone.</p>
                                 <a href="#" className="nav-wa-link">

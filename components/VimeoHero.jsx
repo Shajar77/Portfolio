@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
+import Image from 'next/image';
 
 export default function VimeoHero() {
     const iframeRef = useRef(null);
@@ -135,10 +136,13 @@ export default function VimeoHero() {
             >
                 <div className="vimeo-mute-bubble__blob">
                     {/* Blob shape */}
-                    <img
+                    <Image
                         src="/assets/VimeoHero SVG/mute-bubble-blob.svg"
                         alt=""
                         className="vimeo-mute-bubble__blob-svg"
+                        width={200}
+                        height={200}
+                        aria-hidden="true"
                     />
                     {/* Mute icon (shown when sound is ON → click to mute) */}
                     <div className="vimeo-mute-bubble__icon vimeo-mute-bubble__mute">
@@ -193,10 +197,13 @@ export default function VimeoHero() {
                         <span className="vimeo-hero__word is--relative">
                             <span>craft </span>
                             <div className="home-header__smiley">
-                                <img
+                                <Image
                                     src="/assets/VimeoHero SVG/smiley-face.svg"
                                     alt=""
                                     className="home-header__smiley-svg"
+                                    width={100}
+                                    height={100}
+                                    aria-hidden="true"
                                 />
                             </div>
                         </span>
@@ -216,18 +223,24 @@ export default function VimeoHero() {
                         <span className="vimeo-hero__word is--relative">
                             <div className="home-header__star">
                                 <div className="home-header__star-inner">
-                                    <img
+                                    <Image
                                         src="/assets/VimeoHero SVG/pink-star.svg"
                                         alt=""
                                         className="home-header__star-svg"
+                                        width={100}
+                                        height={100}
+                                        aria-hidden="true"
                                     />
                                 </div>
                             </div>
                             {/* Oval underline */}
-                            <img
+                            <Image
                                 src="/assets/VimeoHero SVG/oval-underline.svg"
                                 alt=""
                                 className="home-header__title-line-svg"
+                                width={500}
+                                height={200}
+                                aria-hidden="true"
                             />
                             <span>blockchains</span>
                         </span>

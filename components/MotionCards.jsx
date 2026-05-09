@@ -2,6 +2,7 @@
 
 import gsap from "gsap";
 import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 import { InertiaPlugin } from "gsap/InertiaPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -136,10 +137,13 @@ export default function MotionCards() {
                     from UI to WEB3
                     {/* SVG sticker placeholder — top-right area */}
                     <span className="motion-card__sticker motion-card__sticker--top">
-                        <img
+                        <Image
                             src="/assets/Footer-Sticker SVG/footer-sticker-smiley.svg"
                             alt="Smiley sticker"
                             className="motion-card__sticker-img"
+                            width={100}
+                            height={100}
+                            aria-hidden="true"
                         />
                     </span>
                 </p>
@@ -152,10 +156,13 @@ export default function MotionCards() {
             <div className="motion-card__cards-area">
                 {/* Blue SVG blob behind everything */}
                 <div className="motion-card__blob">
-                    <img
+                    <Image
                         src="/assets/MotionCard SVG/motion-card-blob.svg"
                         alt=""
                         className="motion-card__blob-svg"
+                        width={600}
+                        height={600}
+                        aria-hidden="true"
                     />
                 </div>
 
@@ -164,7 +171,7 @@ export default function MotionCards() {
                 <div ref={containerRef} className="motion-card__cards">
                     <div className="motion-card__card motion-card__card--1">
                         <div className="motion-card__card-image">
-                            <img
+                            <Image
                                 src="/card-1-new.jpeg"
                                 loading="lazy"
                                 width={1000}
@@ -177,7 +184,7 @@ export default function MotionCards() {
 
                     <div className="motion-card__card motion-card__card--2">
                         <div className="motion-card__card-image">
-                            <img
+                            <Image
                                 src="/project-hero.jpeg"
                                 loading="lazy"
                                 width={1000}
@@ -190,7 +197,7 @@ export default function MotionCards() {
 
                     <div className="motion-card__card motion-card__card--3">
                         <div className="motion-card__card-image">
-                            <img
+                            <Image
                                 src="/project-3.jpeg"
                                 loading="lazy"
                                 width={1000}
@@ -203,7 +210,7 @@ export default function MotionCards() {
 
                     <div className="motion-card__card motion-card__card--4">
                         <div className="motion-card__card-image">
-                            <img
+                            <Image
                                 src="/card-3.jpeg"
                                 loading="lazy"
                                 width={1000}

@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CARDS_DATA } from '@/lib/data';
+import Image from 'next/image';
 
 export default function ServiceCards() {
     useEffect(() => {
@@ -41,10 +42,12 @@ export default function ServiceCards() {
                 {CARDS_DATA.map((card) => (
                     <div key={card.color} className={`card card-${card.color}`}>
                         <div className={`card-sticker sticker-${card.sticker}`}>
-                            <img
+                            <Image
                                 src={`/assets/Card-Sticker SVG/sticker-${card.sticker}.svg`}
                                 alt=""
-                                width="100%"
+                                width={150}
+                                height={150}
+                                style={{ width: '100%', height: 'auto' }}
                                 loading="lazy"
                                 aria-hidden="true"
                             />

@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SOCIAL_ICONS, WIGGLE_CONFIG } from '@/lib/data';
 import { initWiggle } from '@/lib/utils';
+import Image from 'next/image';
 
 
 export default function Footer() {
@@ -192,9 +193,11 @@ export default function Footer() {
             {/* Big TRUUS wordmark */}
             <div className="footer-bottom">
                 <div className="footer-big-text">
-                    <img 
+                    <Image 
                         src="/Blue Pink Groovy Playful Coffee Shop Logo (1).png" 
                         alt="Logo" 
+                        width={1200}
+                        height={400}
                         className="footer-logo__img" 
                         style={{ width: '100%', maxWidth: '1200px', height: 'auto', objectFit: 'contain' }} 
                     />
@@ -203,22 +206,22 @@ export default function Footer() {
                 {/* Stickers */}
                 <div className="footer-stickers">
                     <div className="footer-sticker sticker-smiley">
-                        <img src="/assets/Footer-Sticker SVG/footer-sticker-smiley.svg" width="100%" alt="" data-scroll-animation-target="" aria-hidden="true" />
+                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-smiley.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" data-scroll-animation-target="" aria-hidden="true" />
                     </div>
                     <div className="footer-sticker sticker-heart">
-                        <img src="/assets/Footer-Sticker SVG/footer-sticker-heart.svg" width="100%" alt="" data-scroll-animation-target="" aria-hidden="true" />
+                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-heart.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" data-scroll-animation-target="" aria-hidden="true" />
                     </div>
                     <div className="footer-sticker sticker-hands">
-                        <img src="/assets/Footer-Sticker SVG/footer-sticker-hands.svg" width="100%" alt="" data-scroll-animation-target="" aria-hidden="true" />
+                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-hands.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" data-scroll-animation-target="" aria-hidden="true" />
                     </div>
                     <div className="footer-sticker sticker-100">
-                        <img src="/assets/Footer-Sticker SVG/footer-sticker-100.svg" width="100%" alt="" data-scroll-animation-target="" aria-hidden="true" />
+                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-100.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" data-scroll-animation-target="" aria-hidden="true" />
                     </div>
                     <div className="footer-sticker sticker-camera">
-                        <img src="/assets/Footer-Sticker SVG/footer-sticker-camera.svg" width="100%" alt="" aria-hidden="true" />
+                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-camera.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" aria-hidden="true" />
                     </div>
                     <div className="footer-sticker sticker-boom">
-                        <img src="/assets/Footer-Sticker SVG/footer-sticker-boom.svg" width="100%" alt="" data-scroll-animation-target="" aria-hidden="true" />
+                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-boom.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" data-scroll-animation-target="" aria-hidden="true" />
                     </div>
                 </div>
 

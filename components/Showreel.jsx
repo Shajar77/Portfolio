@@ -7,51 +7,8 @@ import '@/app/styles/showreel.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const images = [
-  {
-    src: "/{E6CB1B12-38C5-49DA-82C1-C2B52A399A42}.png",
-    alt: "Fundverse",
-    desc: "A Blockchain based crowdfunding Dapp, built with Solidity, Next js and Hardhat.",
-    url: "https://fundverse.vercel.app/"
-  },
-  {
-    src: "/{1BF58C71-5819-443C-B922-133885D5B2B9}.png",
-    alt: "HNTRS",
-    desc: "A premium full-stack anime NFT collectibles platform with gacha pulls, dynamic card store, and P2P marketplace built on Polygon.",
-    url: "https://hntrs.vercel.app/"
-  },
-  {
-    src: "/{BF9562C2-597D-48B2-BF9E-FBA50033FFFB}.png",
-    alt: "Rovet",
-    desc: "An on-chain AI model provenance with EIP-712 attestations, built with Solidity and Next.js.",
-    url: "https://rovet.vercel.app/"
-  },
-  {
-    src: "/{7BAFD691-8F99-44D9-AE2C-767531586372}.png",
-    alt: "CSTATE",
-    desc: "CSTATE is an institutional-grade blockchain terminal for the fractionalized ownership of real-world assets and programmatic yield distribution.",
-    url: "https://cestate.vercel.app/"
-  },
-  {
-    src: "/{7C08CEFF-D069-45E1-94B8-B2705B7AEFC8}.png",
-    alt: "Capital Club",
-    desc: "An exclusive community-based networking platform for elite entrepreneurs and high-net-worth individuals.",
-    url: "https://capital.club/"
-  },
-  {
-    src: "/{0B893655-D505-467D-817A-E8EDCBEE619C}.png",
-    alt: "Ecom Society",
-    desc: "A premium e-learning and networking platform for high-performance e-commerce entrepreneurs.",
-    url: "https://www.ecomsociety.com/"
-  },
-];
-
-const stickers = [
-  { src: "/assets/Card-Sticker SVG/sticker-camera.svg", pos: "top-left" },
-  { src: "/assets/Card-Sticker SVG/sticker-smiley.svg", pos: "top-right" },
-  { src: "/assets/Card-Sticker SVG/sticker-phone.svg", pos: "bottom-left" },
-  { src: "/assets/Card-Sticker SVG/sticker-heart.svg", pos: "bottom-right" },
-];
+import Image from 'next/image';
+import { SHOWREEL_IMAGES as images, SHOWREEL_STICKERS as stickers } from '@/lib/data';
 
 export default function Showreel() {
   const sectionRef = useRef(null);
@@ -147,17 +104,28 @@ export default function Showreel() {
     <section ref={sectionRef} className="showreel-section" id="showreel-section">
       <div className="showreel-top-progress">
         <div ref={progressLineRef} className="showreel-top-progress-line"></div>
-        <img 
+        <Image 
           ref={progressSmileyRef} 
           src="/assets/Card-Sticker SVG/sticker-smiley.svg" 
           className="showreel-top-smiley" 
           alt="progress-smiley" 
+          width={40}
+          height={40}
+          aria-hidden="true"
         />
       </div>
 
       <div ref={introContainerRef} className="showreel-intro-container">
         {stickers.map((sticker, index) => (
-          <img key={index} src={sticker.src} className={`showreel-intro-sticker is--${sticker.pos}`} alt="sticker" />
+          <Image 
+            key={index} 
+            src={sticker.src} 
+            className={`showreel-intro-sticker is--${sticker.pos}`} 
+            alt="sticker" 
+            width={100}
+            height={100}
+            aria-hidden="true"
+          />
         ))}
         <h2 className="showreel-intro-title">THE WORK</h2>
       </div>
@@ -177,7 +145,7 @@ export default function Showreel() {
             <a href={image.url} target="_blank" rel="noopener noreferrer" className="showreel-slide-link">
               <div className="showreel-slide-inner">
                 <div className="showreel-slide-img-wrapper">
-                  <img
+                  <Image
                     src={image.src}
                     className="showreel-slide-img"
                     alt={image.alt}

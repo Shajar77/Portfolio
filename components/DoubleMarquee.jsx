@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { brands, colors } from '@/lib/data';
+import Image from 'next/image';
 
 // ─── Shuffle helpers ─────────────────────────────────────────────────────────
 function shuffleArray(array) {
@@ -100,10 +101,10 @@ export default function DoubleMarquee() {
                     </svg>
                 </div>
                 <div className="marquee-blob-container">
-                    <img src="/assets/Marquee-blob SVG/marquee-blob.svg" className="marquee-blob" alt="" aria-hidden="true" />
+                    <Image src="/assets/Marquee-blob SVG/marquee-blob.svg" width={300} height={300} className="marquee-blob" alt="" aria-hidden="true" />
                     <div className="marquee-svg-container">
                         <div className="marquee-svg-item">
-                            <img src="/assets/Marquee-blob SVG/marquee-hand.svg" width="100%" alt="" aria-hidden="true" />
+                            <Image src="/assets/Marquee-blob SVG/marquee-hand.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" aria-hidden="true" />
                         </div>
                         <div className="marquee-svg-item">
                             <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 386 127" fill="none">
@@ -124,10 +125,12 @@ export default function DoubleMarquee() {
                                 <div key={i} className="marquee-item" data-brand={item.brand.name} style={{ backgroundColor: item.color }}>
                                     <div className="marquee-logo">
                                         <div className="marquee-logo__before"></div>
-                                        <img 
+                                        <Image 
                                             src={item.brand.src} 
                                             loading="lazy" 
                                             alt={item.brand.name} 
+                                            width={300}
+                                            height={200}
                                             className={`cover-image ${item.brand.isOriginal ? 'is--original' : ''}`} 
                                         />
                                     </div>
