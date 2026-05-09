@@ -3,9 +3,10 @@
 import dynamic from 'next/dynamic';
 import SvgSymbols from '@/components/SvgSymbols';
 
-// Eagerly import only the hero video (the LCP element) — everything else is deferred
-const VimeoHero = dynamic(() => import('@/components/VimeoHero'), { ssr: false });
-const Navbar = dynamic(() => import('@/components/Navbar'), { ssr: false });
+import Navbar from '@/components/Navbar';
+import VimeoHero from '@/components/VimeoHero';
+
+// Lazily loaded — these are all below-the-fold or non-critical for LCP
 const SmoothScroll = dynamic(() => import('@/components/SmoothScroll'), { ssr: false });
 const HorizontalWords = dynamic(() => import('@/components/HorizontalWords'), { ssr: false });
 const MotionCards = dynamic(() => import('@/components/MotionCards'), { ssr: false });
