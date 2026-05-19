@@ -62,25 +62,45 @@
 /* ─── Mobile Adjustments ─── */
 @media (max-width: 768px) {
     .about-widget {
-        top: auto;
-        bottom: 20px;
-        right: 20px;
-        transform: none;
-        writing-mode: horizontal-tb;
-        padding: 0.6rem 1rem;
-        font-size: 0.8rem;
-        border-radius: 50px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        animation: none;
-        border: none;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 0.9rem 0.4rem;
+        font-size: 0.75rem;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        border: 2px solid var(--color-dark);
+        border-right: none;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        animation: wiggleMobile 3s infinite ease-in-out;
+        box-shadow: -3px 0 15px rgba(0, 0, 0, 0.15);
     }
 
     .about-widget-text {
-        transform: none;
+        transform: rotate(180deg);
     }
 
     .about-widget:hover {
-        padding-right: 1rem; /* reset hover pop out */
-        transform: scale(1.05);
+        padding-right: 0.8rem;
+        transform: translateY(-50%) scale(1.02);
+    }
+}
+
+@keyframes wiggleMobile {
+    0%, 100% {
+        transform: translateY(-50%) rotate(0deg);
+    }
+    5% {
+        transform: translateY(-50%) rotate(-3deg);
+    }
+    10% {
+        transform: translateY(-50%) rotate(3deg);
+    }
+    15% {
+        transform: translateY(-50%) rotate(-3deg);
+    }
+    20% {
+        transform: translateY(-50%) rotate(0deg);
     }
 }
