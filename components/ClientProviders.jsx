@@ -11,6 +11,6 @@ const SmoothScroll = dynamic(() => import('@/components/SmoothScroll'), { ssr: f
  * client-only utilities like SmoothScroll are active on every page
  * without turning layout.jsx into a Client Component.
  */
-export default function ClientProviders() {
-    return <SmoothScroll />;
+export default function ClientProviders({ children }) {
+    return <SmoothScroll>{children}</SmoothScroll>;
 }

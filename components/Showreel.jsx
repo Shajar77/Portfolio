@@ -28,12 +28,16 @@ export default function Showreel() {
       const mm = gsap.matchMedia();
 
       // ─── DESKTOP: Full horizontal scroll + pinning ───────────────────
-      mm.add("(min-width: 769px)", () => {
+      mm.add("all", () => {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top",
-            end: () => `+=${window.innerHeight * (slides.length * 2 + 2)}`,
+            end: () => {
+              const isSmallScreen = window.innerWidth <= 1200;
+              const multiplier = isSmallScreen ? 1.0 : 2.0;
+              return `+=${window.innerHeight * (slides.length * multiplier + 2)}`;
+            },
             pin: true,
             scrub: 1,
             invalidateOnRefresh: true,
@@ -83,51 +87,7 @@ export default function Showreel() {
         });
       });
 
-      // ─── MOBILE: Intro zoom + vertical stacking, no pin ──────────────
-      mm.add("(max-width: 768px)", () => {
-        // Make the horizontal wrapper visible immediately on mobile
-        gsap.set(horizontalWrapperRef.current, { opacity: 1, x: 0 });
 
-        // Simple intro zoom that triggers on scroll (no pin)
-        const introTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            end: "top 20%",
-            scrub: 1,
-          }
-        });
-
-        introTl.fromTo(introContainerRef.current,
-          { width: "80vw", height: "50vw", border: "2px solid var(--color-dark)", backgroundColor: "transparent", opacity: 1 },
-          { width: "100vw", height: "56vw", border: "0px solid var(--color-dark)", backgroundColor: "var(--color-darkblue)", duration: 0.8, ease: "power2.inOut" }
-        );
-        introTl.to(sectionRef.current, { backgroundColor: "var(--color-darkblue)", duration: 0.5 }, 0.3);
-        introStickers.forEach((sticker, i) => {
-          const xDir = i % 2 === 0 ? -80 : 80;
-          const yDir = i < 2 ? -80 : 80;
-          introTl.to(sticker, { x: xDir, y: yDir, opacity: 0, duration: 0.4 }, 0.1);
-        });
-        introTl.to(introTitle, { opacity: 0, scale: 1.1, duration: 0.3 }, 0.3);
-        introTl.to(introContainerRef.current, { opacity: 0, duration: 0.3 }, 0.6);
-
-        // Fade in each slide as user scrolls into it
-        slides.forEach((slide) => {
-          gsap.fromTo(slide,
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1, y: 0, duration: 0.6, ease: "power2.out",
-              scrollTrigger: {
-                trigger: slide,
-                start: "top 85%",
-                end: "top 50%",
-                scrub: false,
-                toggleActions: "play none none reverse"
-              }
-            }
-          );
-        });
-      });
 
     }, sectionRef);
 

@@ -58,3 +58,29 @@
         transform: translateY(-50%) rotate(0deg);
     }
 }
+
+/* ─── Mobile Adjustments ─── */
+@media (max-width: 768px) {
+    .about-widget {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+        transform: none;
+        writing-mode: horizontal-tb;
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+        border-radius: 50px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        animation: none;
+        border: none;
+    }
+
+    .about-widget-text {
+        transform: none;
+    }
+
+    .about-widget:hover {
+        padding-right: 1rem; /* reset hover pop out */
+        transform: scale(1.05);
+    }
+}

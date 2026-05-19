@@ -31,7 +31,7 @@ const HorizontalWords = () => {
 
             let mm = gsap.matchMedia();
 
-            mm.add("(min-width: 769px)", () => {
+            mm.add("all", () => {
                 // --- DESKTOP: ENTRANCE & PINNING LOGIC ---
                 const entranceDistance = window.innerHeight;
                 const pinnedDistance = 2500;
@@ -123,43 +123,7 @@ const HorizontalWords = () => {
                 });
             });
 
-            mm.add("(max-width: 768px)", () => {
-                // --- MOBILE: NO PINNING, VERTICAL SCROLL ONLY ---
-                // Reset horizontal position
-                gsap.set(textRef, { x: 0 });
 
-                // Bounce each letter randomly on normal vertical scroll
-                letters.forEach((letter) => {
-                    gsap.from(letter, {
-                        yPercent: (Math.random() - 0.5) * 200,
-                        rotation: (Math.random() - 0.5) * 30,
-                        opacity: 0,
-                        ease: "elastic.out(1.2, 1)",
-                        scrollTrigger: {
-                            trigger: container,
-                            start: 'top 80%',
-                            end: 'top 30%',
-                            scrub: 1
-                        }
-                    });
-                });
-
-                // Bounce stickers
-                stickers.forEach((sticker) => {
-                    gsap.from(sticker, {
-                        scale: 0,
-                        yPercent: (Math.random() - 0.5) * 200,
-                        rotation: (Math.random() - 0.5) * 30,
-                        ease: "elastic.out(1.2, 1)",
-                        scrollTrigger: {
-                            trigger: container,
-                            start: 'top 80%',
-                            end: 'top 30%',
-                            scrub: 1
-                        }
-                    });
-                });
-            });
 
         }, sectionRef);
 

@@ -1,27 +1,25 @@
 'use client';
 
-import { useEffect } from 'react';
-import Lenis from 'lenis';
+import { useEffect, useRef } from 'react';
+import { ReactLenis, useLenis } from 'lenis/react';
+import 'lenis/dist/lenis.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-export default function SmoothScroll() {
+export default function SmoothScroll({ children }) {
+    const lenisRef = useRef();
+
     useEffect(() => {
-        // Respect OS-level reduced motion preference
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (prefersReducedMotion) return;
 
         gsap.registerPlugin(ScrollTrigger);
 
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smoothWheel: true,
-            touchMultiplier: 1.5,
-        });
+        function update(time) {
+            lenisRef.current?.lenis?.raf(time * 1000);
+        }
 
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+        gsap.ticker.add(update);
         gsap.ticker.lagSmoothing(0);
 
         // Dynamic Tab Title Change
@@ -31,8 +29,7 @@ export default function SmoothScroll() {
         };
         document.addEventListener('visibilitychange', handleVisibility);
 
-        // Auto-refresh ScrollTrigger when DOM layout changes (dynamic imports, image loads, etc)
-        // Debounced with rAF to avoid thrashing on rapid resize events
+        // Auto-refresh ScrollTrigger when DOM layout changes
         let rafId = null;
         const resizeObserver = new ResizeObserver(() => {
             if (rafId) cancelAnimationFrame(rafId);
@@ -42,17 +39,31 @@ export default function SmoothScroll() {
         });
         resizeObserver.observe(document.body);
 
-        // Store lenis on window so other components can access it
-        window.__lenis = lenis;
-
         return () => {
-            lenis.destroy();
+            gsap.ticker.remove(update);
             document.removeEventListener('visibilitychange', handleVisibility);
             resizeObserver.disconnect();
             if (rafId) cancelAnimationFrame(rafId);
-            delete window.__lenis;
         };
     }, []);
 
-    return null;
+    useLenis((lenis) => {
+        ScrollTrigger.update();
+    });
+
+    return (
+        <ReactLenis 
+            root 
+            ref={lenisRef} 
+            autoRaf={false} 
+            options={{ 
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true,
+                touchMultiplier: 1.5
+            }}
+        >
+            {children}
+        </ReactLenis>
+    );
 }

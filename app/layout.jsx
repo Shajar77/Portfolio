@@ -69,9 +69,10 @@ export default function RootLayout({ children }) {
             {/* suppressHydrationWarning: browser extensions (password managers, dark mode, etc.)
                 inject attributes into <body> causing harmless SSR/client mismatch warnings */}
             <body suppressHydrationWarning>
-                {children}
-                <ClientProviders />
-                <AboutWidget />
+                <ClientProviders>
+                    {children}
+                    <AboutWidget />
+                </ClientProviders>
             </body>
         </html>
     );

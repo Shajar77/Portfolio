@@ -2,6 +2,7 @@
     background-color: var(--bg-color);
     color: var(--color-dark);
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 .container {
@@ -523,6 +524,19 @@
     .about-section-title {
         font-size: clamp(2.5rem, 8vw, 4rem);
         text-align: center;
+    }
+    
+    .about-status-tag {
+        left: -10px;
+        top: 20px;
+        font-size: 0.65rem;
+        padding: 8px 10px;
+    }
+
+    .about-sticker--camera {
+        right: 0px;
+        bottom: 0px;
+        width: 70px;
     }
     
     .timeline-title {

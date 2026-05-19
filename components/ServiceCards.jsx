@@ -85,12 +85,21 @@ function initCardAnimations() {
         { rotation: 5 }
     ];
 
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    let leaveTimeout = null;
+    let mm = gsap.matchMedia();
 
-    if (!isMobile) {
+    // ─── Desktop (> 1200px) ───
+    mm.add("(min-width: 1201px)", () => {
+        let leaveTimeout = null;
+
+        // Reset to natural CSS positions
+        gsap.set(cards, { clearProps: "all" });
+        cards.forEach((card, i) => gsap.set(card, { rotation: originalData[i].rotation }));
+
+        const enterHandlers = [];
+        const leaveHandlers = [];
+
         cards.forEach((card, index) => {
-            card.addEventListener('mouseenter', () => {
+            const onEnter = () => {
                 if (leaveTimeout) { clearTimeout(leaveTimeout); leaveTimeout = null; }
                 const hoverGap = 120;
                 const clusterGap = 150;
@@ -108,7 +117,7 @@ function initCardAnimations() {
                 const targetCommonTop = 50;
                 const moveY = targetCommonTop - currentTop;
 
-                gsap.to(cards[index], { x: 0, y: moveY, rotation: 0, scale: 1.08, duration: 0.9, ease: 'elastic.out(1, 0.5)', overwrite: true });
+                gsap.to(cards[index], { x: 0, y: moveY, rotation: 0, scale: 1.08, duration: 0.9, ease: 'elastic.out(1, 0.5)', overwrite: true, zIndex: 10 });
 
                 if (rightCards.length) {
                     const clusterStart = hoveredLeft + cardWidth + hoverGap;
@@ -117,7 +126,7 @@ function initCardAnimations() {
                         const targetX = Math.max(targetAbsLeft - item.card.offsetLeft, 10);
                         const angleRad = originalData[item.index].rotation * (Math.PI / 180);
                         const targetY = targetX * Math.tan(angleRad);
-                        gsap.to(item.card, { x: targetX, y: targetY, rotation: originalData[item.index].rotation, scale: 1, duration: 1.0, ease: 'elastic.out(1, 0.5)', overwrite: true });
+                        gsap.to(item.card, { x: targetX, y: targetY, rotation: originalData[item.index].rotation, scale: 1, duration: 1.0, ease: 'elastic.out(1, 0.5)', overwrite: true, zIndex: rightCards.length - i });
                     });
                 }
 
@@ -129,63 +138,52 @@ function initCardAnimations() {
                         const targetX = Math.min(targetAbsLeft - item.card.offsetLeft, -10);
                         const angleRad = originalData[item.index].rotation * (Math.PI / 180);
                         const targetY = targetX * Math.tan(angleRad);
-                        gsap.to(item.card, { x: targetX, y: targetY, rotation: originalData[item.index].rotation, scale: 1, duration: 1.0, ease: 'elastic.out(1, 0.5)', overwrite: true });
+                        gsap.to(item.card, { x: targetX, y: targetY, rotation: originalData[item.index].rotation, scale: 1, duration: 1.0, ease: 'elastic.out(1, 0.5)', overwrite: true, zIndex: leftCards.length - i });
                     });
                 }
-            });
+            };
 
-            card.addEventListener('mouseleave', () => {
+            const onLeave = () => {
                 leaveTimeout = setTimeout(() => {
                     cards.forEach((c, i) => {
                         gsap.to(c, { x: 0, y: 0, scale: 1, rotation: originalData[i].rotation, duration: 1.0, ease: 'elastic.out(1, 0.5)', overwrite: true, zIndex: i + 1 });
                     });
                 }, 80);
-            });
-        });
-    } else {
-        // ─── Mobile: Stacked card scroll reveal ───
-        const cardsWrapper = document.querySelector('.cards-wrapper');
-        const scrollPerCard = window.innerHeight * 0.8;
-        const navH = 60;
-        const mobileRotations = [-6, 4, -8, 5, -3];
+            };
 
-        cards.forEach((card, i) => {
-            gsap.set(card, {
-                position: 'absolute', left: '50%', top: '0', xPercent: -50,
-                y: i === 0 ? 0 : window.innerHeight * 1.1,
-                rotation: mobileRotations[i % mobileRotations.length],
-                zIndex: i + 1,
-                transformOrigin: 'center center'
-            });
+            card.addEventListener('mouseenter', onEnter);
+            card.addEventListener('mouseleave', onLeave);
+
+            enterHandlers.push({ card, handler: onEnter });
+            leaveHandlers.push({ card, handler: onLeave });
         });
 
-        const wrapperH = window.innerHeight * 0.7 + scrollPerCard * (cards.length - 1);
-        gsap.set(cardsWrapper, { height: wrapperH });
+        return () => {
+            enterHandlers.forEach(({ card, handler }) => card.removeEventListener('mouseenter', handler));
+            leaveHandlers.forEach(({ card, handler }) => card.removeEventListener('mouseleave', handler));
+            gsap.set(cards, { clearProps: "all" });
+        };
+    });
 
-        ScrollTrigger.create({
-            trigger: cardsWrapper,
-            start: `top ${navH}px`,
-            end: `+=${scrollPerCard * (cards.length - 1)}`,
-            pin: true,
-            pinSpacing: true,
-            id: 'mobile-cards-pin'
+    // ─── Tablet & Mobile (<= 1200px) ───
+    mm.add("(max-width: 1200px)", () => {
+        // Just rely on CSS flex column layout, clear GSAP props
+        gsap.set(cards, { clearProps: "all" });
+        
+        // Add subtle entry animation for smaller screens
+        gsap.from(cards, {
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            scrollTrigger: {
+                trigger: '.cards-wrapper',
+                start: 'top 75%'
+            }
         });
-
-        cards.forEach((card, i) => {
-            if (i === 0) return;
-            gsap.fromTo(card,
-                { y: window.innerHeight * 1.1 },
-                {
-                    y: 0,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: cardsWrapper,
-                        start: `top+=${(i - 1) * scrollPerCard} ${navH}px`,
-                        end: `top+=${i * scrollPerCard} ${navH}px`,
-                        scrub: 0.4
-                    }
-                }
-            );
-        });
-    }
+        
+        return () => {
+            gsap.set(cards, { clearProps: "all" });
+        };
+    });
 }
