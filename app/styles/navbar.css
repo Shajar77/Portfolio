@@ -1,6 +1,18 @@
 /* ─── Navbar & Header ───────────────────────────────────────────────────────── */
 .main-header {
     width: 100%;
+    position: relative;
+}
+
+.nav-left {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    cursor: url("/assets/Cursor SVG/cursor-pointer.svg") 12 12, pointer;
+}
+
+.nav-right {
+    cursor: url("/assets/Cursor SVG/cursor-pointer.svg") 12 12, pointer;
 }
 
 .logo-work-container {
@@ -69,11 +81,6 @@
 }
 
 
-/* VimeoHero sits directly inside main-header — no extra wrapper needed */
-.main-header {
-    width: 100%;
-    position: relative;
-}
 
 /* ─── Full-screen dark overlay when navbar popout is open ─── */
 .nav-overlay {

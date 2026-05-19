@@ -1,3 +1,18 @@
+/* ─── Large Desktop (>1400px) — prevent content from going too wide ──────── */
+@media (min-width: 1401px) {
+    .motion-card__footer-text {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .cards-wrapper {
+        max-width: 1600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 /* ─── Tablet (769px – 1200px) ────────────────────────────────────────────── */
 @media (min-width: 769px) and (max-width: 1200px) {
     .cards-wrapper {
@@ -55,6 +70,16 @@
         height: 650px;
         margin-right: 0;
     }
+
+    /* Vimeo hero controls */
+    .vimeo-hero__controls {
+        left: 24px;
+        bottom: 20px;
+    }
+
+    .home-header__title {
+        padding: 0 24px;
+    }
 }
 
 /* ─── Medium screens (≤ 900px) ───────────────────────────────────────────── */
@@ -83,10 +108,6 @@
         padding: 14px 16px;
     }
 
-    .logo-truus {
-        width: 100px;
-    }
-
     .logo-work-container {
         width: 48px;
         height: 44px;
@@ -101,6 +122,15 @@
         width: 26px;
     }
 
+    /* Hide navbar popouts on mobile — they require hover */
+    .nav-popout {
+        display: none !important;
+    }
+
+    .nav-overlay {
+        display: none !important;
+    }
+
     /* ── Header Hero ────────────────── */
     .header-content {
         height: 100svh;
@@ -110,6 +140,39 @@
 
     .header-content h1 {
         font-size: 2rem;
+    }
+
+    /* ── Vimeo Hero ─────────────────── */
+    .vimeo-hero {
+        width: calc(100% - 12px);
+        height: calc(100svh - 12px);
+        margin: 6px auto;
+        border-radius: 16px;
+    }
+
+    .home-header__title {
+        padding: 0 20px;
+        bottom: 24px;
+    }
+
+    .vimeo-hero__title {
+        letter-spacing: -2px;
+    }
+
+    .vimeo-hero__controls {
+        left: 20px;
+        bottom: 16px;
+    }
+
+    .vimeo-hero__btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Hide custom cursors on touch devices */
+    .cursor-bubble,
+    .vimeo-mute-bubble {
+        display: none !important;
     }
 
     /* ── Content / Hero Title ───────── */
@@ -154,6 +217,11 @@
     .motion-card__card {
         width: 38vw;
         height: 50vw;
+    }
+
+    .motion-card__description {
+        font-size: 0.95rem;
+        padding: 0 4px;
     }
 
     /* ── Cards (GSAP-controlled) ─────── */
@@ -396,8 +464,26 @@
     }
 
     /* ── Hero ────────────────────────── */
+    .vimeo-hero {
+        width: calc(100% - 8px);
+        height: calc(100svh - 8px);
+        margin: 4px auto;
+        border-radius: 12px;
+    }
+
     .vimeo-hero__title {
         font-size: clamp(1.8rem, 9vw, 3.5rem);
+        letter-spacing: -1.5px;
+    }
+
+    .home-header__title {
+        padding: 0 14px;
+        bottom: 16px;
+    }
+
+    .vimeo-hero__controls {
+        left: 14px;
+        bottom: 12px;
     }
 
     /* ── Motion Cards ────────────────── */
@@ -463,5 +549,29 @@
     .sticker-heart,
     .footer-sticker.sticker-100 {
         display: none;
+    }
+}
+
+/* ─── Ultra-narrow (≤ 360px) — Galaxy S series, iPhone SE ────────────────── */
+@media (max-width: 360px) {
+    .vimeo-hero__title {
+        font-size: clamp(1.5rem, 8.5vw, 2.5rem);
+    }
+
+    .motion-card__title {
+        font-size: 2.2rem;
+    }
+
+    .motion-card__subtitle {
+        font-size: 2.6rem;
+    }
+
+    .motion-card__card {
+        width: 48vw;
+        height: 62vw;
+    }
+
+    .footer-column h3 {
+        font-size: 1.05rem;
     }
 }

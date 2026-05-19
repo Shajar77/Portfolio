@@ -1,5 +1,6 @@
 import './globals.css';
 import ClientProviders from '@/components/ClientProviders';
+import AboutWidget from '@/components/AboutWidget';
 
 export const metadata = {
     metadataBase: new URL('https://shajar-portfolio.vercel.app'),
@@ -65,9 +66,12 @@ export default function RootLayout({ children }) {
                     type="video/mp4"
                 />
             </head>
+            {/* suppressHydrationWarning: browser extensions (password managers, dark mode, etc.)
+                inject attributes into <body> causing harmless SSR/client mismatch warnings */}
             <body suppressHydrationWarning>
                 {children}
                 <ClientProviders />
+                <AboutWidget />
             </body>
         </html>
     );

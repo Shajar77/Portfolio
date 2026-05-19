@@ -93,3 +93,26 @@ iframe {
 .cursor-bubble {
     will-change: transform, opacity;
 }
+
+/* ─── Reduced Motion (Accessibility) ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .navbar,
+    .cursor-bubble {
+        will-change: auto;
+    }
+
+    /* Hide custom cursor on reduced-motion — it's purely decorative */
+    .cursor-bubble,
+    .vimeo-mute-bubble {
+        display: none !important;
+    }
+}

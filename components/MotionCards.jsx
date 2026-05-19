@@ -11,6 +11,7 @@ gsap.registerPlugin(InertiaPlugin, ScrollTrigger);
 export default function MotionCards() {
     const sectionRef = useRef(null);
     const containerRef = useRef(null);
+    const labelsRef = useRef(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -223,7 +224,7 @@ export default function MotionCards() {
                 </div>
 
                 {/* Floating labels — positioned freely over the cards area */}
-                <div ref={containerRef} className="motion-card__floating-labels">
+                <div ref={labelsRef} className="motion-card__floating-labels">
                     <div className="motion-card__floating-label motion-card__floating-label--pink">
                         <p className="motion-card__floating-text">pixel perfectionist</p>
                     </div>

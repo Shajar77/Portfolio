@@ -97,6 +97,7 @@ export default function Footer() {
         });
 
         // ─── Sticker cursor-velocity push ───
+        const stickerMoveCleanups = [];
         footerStickers.forEach((sticker, i) => {
             const baseRotation = stickerRotations[i % stickerRotations.length] * 0.7;
             const PROXIMITY_RADIUS = 180, STRENGTH = 4, MAX_PUSH = 55, MIN_SPEED = 3;
@@ -125,7 +126,7 @@ export default function Footer() {
                 }
             };
             document.addEventListener('mousemove', onMove);
-            // No cleanup stored here to match original behaviour (lives for page lifetime)
+            stickerMoveCleanups.push(() => document.removeEventListener('mousemove', onMove));
         });
 
         // ─── Wiggle on footer interactive elements ───
@@ -143,6 +144,9 @@ export default function Footer() {
         // ─── Social icon wiggle ───
         document.querySelectorAll('.single-social').forEach(el => initWiggle(el, WIGGLE_CONFIG.socials));
 
+        return () => {
+            stickerMoveCleanups.forEach(fn => fn());
+        };
     }, []);
 
     return (
@@ -150,17 +154,17 @@ export default function Footer() {
             <div className="footer-top">
                 {/* Jobs */}
                 <div className="footer-column">
-                    <span className="footer-badge">looking for a job?</span>
-                    <h3>not hiring right now :(</h3>
+                    <span className="footer-badge">open to work</span>
+                    <h3>available for freelance & full-time</h3>
                 </div>
                 {/* Office */}
                 <div className="footer-column">
-                    <span className="footer-badge">office</span>
+                    <span className="footer-badge">location</span>
                     <address>
-                        papaverhof 21<br />
-                        1032 LX amsterdam
+                        lahore,<br />
+                        pakistan
                     </address>
-                    <a href="#" className="footer-map-link">
+                    <a href="https://maps.google.com/?q=Lahore+Pakistan" target="_blank" rel="noopener noreferrer" className="footer-map-link">
                         <span>Google Maps</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 169 10" fill="none" className="draw-btn__svg">
                             <path d="M1 6.5661C56.3941 3.06082 112.187 1.20095 168 0.999878" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25"></path>
@@ -232,12 +236,12 @@ export default function Footer() {
                         <div className="credits-box">
                             <div className="credits-content">
                                 <div className="credits-item credit-wiggle">
-                                    <div className="overflow-wrapper"><span className="credits-label">design by</span></div>
-                                    <div className="overflow-wrapper"><a href="#" className="credits-name" data-wiggle-target="true">Jordan</a></div>
+                                    <div className="overflow-wrapper"><span className="credits-label">design & code</span></div>
+                                    <div className="overflow-wrapper"><a href="https://github.com/Shajar77" target="_blank" rel="noopener noreferrer" className="credits-name" data-wiggle-target="true">Shajar Ali</a></div>
                                 </div>
                                 <div className="credits-item credit-wiggle">
-                                    <div className="overflow-wrapper"><span className="credits-label">code by</span></div>
-                                    <div className="overflow-wrapper"><a href="#" className="credits-name" data-wiggle-target="true">Dennis</a></div>
+                                    <div className="overflow-wrapper"><span className="credits-label">inspired by</span></div>
+                                    <div className="overflow-wrapper"><a href="https://www.truus.co" target="_blank" rel="noopener noreferrer" className="credits-name" data-wiggle-target="true">Truus.co</a></div>
                                 </div>
                             </div>
                         </div>

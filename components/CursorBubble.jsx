@@ -8,6 +8,9 @@ export default function CursorBubble() {
         const cursorBubble = document.querySelector('.cursor-bubble');
         if (!cursorBubble) return;
 
+        // Skip on touch-only devices (cursor bubble is hidden but JS was still running)
+        if (window.matchMedia('(hover: none)').matches) return;
+
         const xTo = gsap.quickTo(cursorBubble, 'x', { duration: 0.5, ease: 'power3' });
         const yTo = gsap.quickTo(cursorBubble, 'y', { duration: 0.5, ease: 'power3' });
 
@@ -25,9 +28,7 @@ export default function CursorBubble() {
 
             if (found && !isHoveringClickable) {
                 isHoveringClickable = true;
-                if (found.matches('.logo-truus')) cursorBubble.textContent = 'to home';
-                else if (found.matches('.nav-work-btn')) cursorBubble.textContent = 'click';
-                else cursorBubble.textContent = 'click';
+                cursorBubble.textContent = found.matches('.logo-truus') ? 'to home' : 'click';
                 gsap.killTweensOf(cursorBubble, 'opacity,scale,rotation');
                 gsap.to(cursorBubble, { opacity: 1, scale: 1, rotation: 0, duration: 1.7, delay: 0.1, ease: 'elastic.out(1, 0.4)' });
             } else if (!found && isHoveringClickable) {
@@ -45,8 +46,8 @@ export default function CursorBubble() {
             }
         };
 
-        window.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseover', onMouseOver);
+        window.addEventListener('mousemove', onMouseMove, { passive: true });
+        document.addEventListener('mouseover', onMouseOver, { passive: true });
         document.addEventListener('mouseleave', onMouseLeave);
 
         return () => {

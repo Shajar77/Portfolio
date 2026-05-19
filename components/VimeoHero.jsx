@@ -67,7 +67,7 @@ export default function VimeoHero() {
             if (controls) gsap.to(controls, { opacity: 1, duration: 0.3, pointerEvents: 'auto' });
         };
 
-        window.addEventListener('mousemove', onMove);
+        window.addEventListener('mousemove', onMove, { passive: true });
         hero.addEventListener('mouseenter', onEnter);
         hero.addEventListener('mouseleave', onLeave);
 

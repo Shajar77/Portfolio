@@ -55,7 +55,7 @@ export default function Navbar({ forceTheme }) {
             }
         };
 
-        window.addEventListener('scroll', updateNavbarColor);
+        window.addEventListener('scroll', updateNavbarColor, { passive: true });
         updateNavbarColor();
 
         // Wiggle on whatsapp (and previously logo)
@@ -281,13 +281,13 @@ export default function Navbar({ forceTheme }) {
             window.removeEventListener('scroll', updateNavbarColor);
             cleanups.forEach(fn => fn && fn());
         };
-    }, []);
+    }, [forceTheme]);
 
     return (
         <>
             <div className="nav-overlay"></div>
             <nav className="navbar">
-                <div className="nav-left" style={{ cursor: "url('/assets/Cursor SVG/cursor-pointer.svg') 12 12, pointer", display: 'flex', gap: '30px', alignItems: 'center' }}>
+                <div className="nav-left">
                     <div className="nav-hover-trigger">
                         <div className="logo-work-container">
                             <Image src="/assets/Navbar SVG/nav-work-blob.svg" width={60} height={55} className="nav-bar__work-blob-svg" alt="" aria-hidden="true" />
@@ -299,38 +299,38 @@ export default function Navbar({ forceTheme }) {
                             <div className="nav-popout-inner">
                                 <div className="nav-work-item">
                                     <div className="nav-work-item__img-wrap">
-                                        <Image src="https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/68a46f25779a71fac3a11903_SnapInsta.jpg" loading="eager" width={400} height={300} alt="Feestje bouwe? App Douwe" className="nav-work-item__img" />
+                                        <Image src="/{7BAFD691-8F99-44D9-AE2C-767531586372}.png" loading="eager" width={400} height={300} alt="CSTATE RWA Platform" className="nav-work-item__img" />
                                     </div>
                                     <div className="nav-work-item__text">
-                                        <span className="nav-work-badge badge-maroon">douwe egberts</span>
-                                        <h4 className="nav-work-title">feestje bouwe? app douwe</h4>
+                                        <span className="nav-work-badge badge-maroon">blockchain</span>
+                                        <h4 className="nav-work-title">cstate rwa terminal</h4>
                                     </div>
                                 </div>
                                 <div className="nav-work-item">
                                     <div className="nav-work-item__img-wrap">
-                                        <Image src="https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/6880a344675f3a6144ed04df_01_HEMA_Back2School.avif" loading="eager" width={400} height={300} alt="Skibidi school" className="nav-work-item__img" />
+                                        <Image src="/{1BF58C71-5819-443C-B922-133885D5B2B9}.png" loading="eager" width={400} height={300} alt="HNTRS NFT Platform" className="nav-work-item__img" />
                                     </div>
                                     <div className="nav-work-item__text">
-                                        <span className="nav-work-badge badge-pink">hema</span>
-                                        <h4 className="nav-work-title">skibidi school</h4>
+                                        <span className="nav-work-badge badge-pink">web3</span>
+                                        <h4 className="nav-work-title">hntrs nft collectibles</h4>
                                     </div>
                                 </div>
                                 <div className="nav-work-item">
                                     <div className="nav-work-item__img-wrap">
-                                        <Image src="https://cdn.prod.website-files.com/683863cbe1f5a81b667b9939/686b7e0ed3ab3045b28a2012_3.avif" loading="eager" width={400} height={300} alt="Hema socials" className="nav-work-item__img" />
+                                        <Image src="/{E6CB1B12-38C5-49DA-82C1-C2B52A399A42}.png" loading="eager" width={400} height={300} alt="Fundverse Crowdfunding" className="nav-work-item__img" />
                                     </div>
                                     <div className="nav-work-item__text">
-                                        <span className="nav-work-badge badge-pink">hema</span>
-                                        <h4 className="nav-work-title">hema socials</h4>
+                                        <span className="nav-work-badge badge-pink">dapp</span>
+                                        <h4 className="nav-work-title">fundverse crowdfunding</h4>
                                     </div>
                                 </div>
-                                <a href="#" className="nav-work-btn"><span className="nav-work-btn__text">All our work</span></a>
+                                <a href="#showreel-section" className="nav-work-btn"><span className="nav-work-btn__text">All our work</span></a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="nav-right" style={{ cursor: "url('/assets/Cursor SVG/cursor-pointer.svg') 12 12, pointer" }}>
+                <div className="nav-right">
                     <div className="nav-hover-trigger">
                         <div className="logo-whatsapp">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 25 27" fill="none" className="nav-bar__whatsapp-svg">

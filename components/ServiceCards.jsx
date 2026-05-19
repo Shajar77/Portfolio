@@ -27,7 +27,7 @@ export default function ServiceCards() {
     }, []);
 
     return (
-        <>
+        <div className="gsap-wrapper">
             {/* ─── "Call us if you need:" Heading ─── */}
             <div className="title-container">
                 <h2 className="main-title">call us if you <span className="italic-text">need:</span></h2>
@@ -69,7 +69,7 @@ export default function ServiceCards() {
                     </div>
                 ))}
             </div>
-        </>
+        </div>
     );
 }
 

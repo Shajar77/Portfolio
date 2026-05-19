@@ -135,7 +135,8 @@ export default function Showreel() {
   }, [images.length]);
 
   return (
-    <section ref={sectionRef} className="showreel-section" id="showreel-section">
+    <div className="gsap-wrapper">
+      <section ref={sectionRef} className="showreel-section" id="showreel-section">
       <div className="showreel-top-progress">
         <div ref={progressLineRef} className="showreel-top-progress-line"></div>
         <Image 
@@ -206,6 +207,7 @@ export default function Showreel() {
           </div>
         ))}
       </div>
-    </section>
+      </section>
+    </div>
   );
 }
