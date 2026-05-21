@@ -58,13 +58,6 @@ export default function RootLayout({ children }) {
                     type="font/ttf"
                     crossOrigin="anonymous"
                 />
-                {/* Preload the hero video so LCP is discovered immediately */}
-                <link
-                    rel="preload"
-                    href="/20563164-uhd_3840_2160_30fps (1).mp4"
-                    as="video"
-                    type="video/mp4"
-                />
             </head>
             {/* suppressHydrationWarning: browser extensions (password managers, dark mode, etc.)
                 inject attributes into <body> causing harmless SSR/client mismatch warnings */}

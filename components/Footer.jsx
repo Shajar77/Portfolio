@@ -176,7 +176,7 @@ export default function Footer() {
                 <div className="footer-column">
                     <span className="footer-badge">contact</span>
                     <a href="mailto:shajaralii773@gmail.com" className="footer-email">shajaralii773@gmail.com</a>
-                    <a href="#" className="footer-whatsapp">send us a whatsapp*</a>
+                    <a href="https://wa.me/923211688059" target="_blank" rel="noopener noreferrer" className="footer-whatsapp">send us a whatsapp*</a>
                     <p className="footer-note">*we&apos;re millennials and gen-z: please do not call us.</p>
                     <div className="footer-socials" id="footer-socials">
                         {SOCIAL_ICONS.map(({ href, label, svg }) => (
@@ -194,7 +194,7 @@ export default function Footer() {
                 </div>
             </div>
 
-            {/* Big TRUUS wordmark */}
+            {/* Big SHAJAR wordmark */}
             <div className="footer-bottom">
                 <div className="footer-big-text">
                     <Image 
@@ -204,28 +204,29 @@ export default function Footer() {
                         height={400}
                         className="footer-logo__img" 
                         style={{ width: '100%', maxWidth: '1200px', height: 'auto', objectFit: 'contain' }} 
+                        loading="lazy"
                     />
                 </div>
 
                 {/* Stickers */}
                 <div className="footer-stickers">
                     <div className="footer-sticker sticker-smiley">
-                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-smiley.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" data-scroll-animation-target="" aria-hidden="true" />
+                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-smiley.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" data-scroll-animation-target="" aria-hidden="true" loading="lazy" />
                     </div>
                     <div className="footer-sticker sticker-heart">
-                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-heart.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" data-scroll-animation-target="" aria-hidden="true" />
+                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-heart.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" data-scroll-animation-target="" aria-hidden="true" loading="lazy" />
                     </div>
                     <div className="footer-sticker sticker-hands">
-                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-hands.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" data-scroll-animation-target="" aria-hidden="true" />
+                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-hands.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" data-scroll-animation-target="" aria-hidden="true" loading="lazy" />
                     </div>
                     <div className="footer-sticker sticker-100">
-                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-100.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" data-scroll-animation-target="" aria-hidden="true" />
+                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-100.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" data-scroll-animation-target="" aria-hidden="true" loading="lazy" />
                     </div>
                     <div className="footer-sticker sticker-camera">
-                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-camera.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" aria-hidden="true" />
+                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-camera.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" aria-hidden="true" loading="lazy" />
                     </div>
                     <div className="footer-sticker sticker-boom">
-                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-boom.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" data-scroll-animation-target="" aria-hidden="true" />
+                        <Image src="/assets/Footer-Sticker SVG/footer-sticker-boom.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" data-scroll-animation-target="" aria-hidden="true" loading="lazy" />
                     </div>
                 </div>
 

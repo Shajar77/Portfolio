@@ -101,10 +101,10 @@ export default function DoubleMarquee() {
                     </svg>
                 </div>
                 <div className="marquee-blob-container">
-                    <Image src="/assets/Marquee-blob SVG/marquee-blob.svg" width={300} height={300} className="marquee-blob" alt="" aria-hidden="true" />
+                    <Image src="/assets/Marquee-blob SVG/marquee-blob.svg" width={300} height={300} className="marquee-blob" alt="" aria-hidden="true" loading="lazy" />
                     <div className="marquee-svg-container">
                         <div className="marquee-svg-item">
-                            <Image src="/assets/Marquee-blob SVG/marquee-hand.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" aria-hidden="true" />
+                            <Image src="/assets/Marquee-blob SVG/marquee-hand.svg" width={150} height={150} style={{ width: '100%', height: 'auto' }} alt="" aria-hidden="true" loading="lazy" />
                         </div>
                         <div className="marquee-svg-item">
                             <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 386 127" fill="none">

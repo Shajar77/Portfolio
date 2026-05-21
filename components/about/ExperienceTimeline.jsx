@@ -9,28 +9,28 @@ export default function ExperienceTimeline() {
                 </div>
                 <div className="timeline">
                     <div className="timeline-item">
-                        <span className="timeline-year">2024 - PRESENT</span>
+                        <span className="timeline-year">2026 - Present</span>
                         <div className="timeline-content">
                             <h3 className="timeline-title">Lead Web3 Developer</h3>
-                            <p className="timeline-desc">Pioneering decentralized solutions and high-end interactive interfaces for global clients.</p>
+                            <p className="timeline-desc">Directing smart contract architecture, building secure enterprise-grade Web3 protocols, and designing high-performance interactive interfaces.</p>
                         </div>
-                        <div className="timeline-company">Kryptomind LLC</div>
+                        <div className="timeline-company">AHSANZ Digital</div>
                     </div>
                     <div className="timeline-item">
-                        <span className="timeline-year">2021 - 2023</span>
+                        <span className="timeline-year">2025-2026</span>
                         <div className="timeline-content">
-                            <h3 className="timeline-title">Senior Frontend Engineer</h3>
-                            <p className="timeline-desc">Specialized in motion design and React-based architectures for institutional platforms.</p>
+                            <h3 className="timeline-title">Full Stack Blockchain Developer</h3>
+                            <p className="timeline-desc">Architecting secure Solidity smart contracts, building scalable backend servers, and integrating interactive frontends with Web3/EVM nodes.</p>
                         </div>
                         <div className="timeline-company">Redoya Inc</div>
                     </div>
                     <div className="timeline-item">
-                        <span className="timeline-year">2018 - 2020</span>
+                        <span className="timeline-year">2021 - 2025</span>
                         <div className="timeline-content">
-                            <h3 className="timeline-title">Full Stack Developer</h3>
-                            <p className="timeline-desc">Building the foundation of my career across diverse tech stacks and early blockchain experiments.</p>
+                            <h3 className="timeline-title">Web3 Developer</h3>
+                            <p className="timeline-desc">Developing decentralized applications, writing smart contracts, and integrating dApp frontends with EVM networks.</p>
                         </div>
-                        <div className="timeline-company">Visacme Technologies</div>
+                        <div className="timeline-company">Softech Society</div>
                     </div>
                 </div>
             </div>

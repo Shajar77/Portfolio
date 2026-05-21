@@ -181,9 +181,9 @@ const HorizontalWords = () => {
 
             <div className="horizontal-words__bottom-text">
                 <div className="horizontal-words__bottom-text-l">
-                    Most blockchain developers can't design.<br />
-                    Most creative developers can't write a contract.<br />
-                    <em className="highlight-web3">I do both — and that's exactly what Web3 has been missing.</em>
+                    Most blockchain developers can&apos;t design.<br />
+                    Most creative developers can&apos;t write a contract.<br />
+                    <em className="highlight-web3">I do both — and that&apos;s exactly what Web3 has been missing.</em>
                 </div>
             </div>
             </section>

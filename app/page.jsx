@@ -15,6 +15,7 @@ const DoubleMarquee = dynamic(() => import('@/components/DoubleMarquee'), { ssr:
 const Footer = dynamic(() => import('@/components/Footer'), { ssr: false });
 const TransitionScribble = dynamic(() => import('@/components/TransitionScribble'), { ssr: false });
 const CursorBubble = dynamic(() => import('@/components/CursorBubble'), { ssr: false });
+const EntranceLoader = dynamic(() => import('@/components/EntranceLoader'), { ssr: false });
 
 export default function Home() {
     return (
@@ -43,6 +44,7 @@ export default function Home() {
             <TransitionScribble />
             {/* Non-visual utilities loaded last */}
             <CursorBubble />
+            <EntranceLoader />
         </>
     );
 }

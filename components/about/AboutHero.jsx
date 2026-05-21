@@ -16,17 +16,19 @@ export default function AboutHero() {
                                     height={467}
                                     className="about-hero__img"
                                     priority
+                                    fetchPriority="high"
+                                    draggable={false}
                                 />
                             </div>
                             <div className="about-status-tag">AVAILABLE FOR FREELANCE</div>
-                            <Image src="/assets/Footer-Sticker SVG/footer-sticker-camera.svg" width={100} height={100} className="about-sticker about-sticker--camera wiggle-element" alt="" style={{ filter: 'invert(1)' }} aria-hidden="true" />
+                            <Image src="/assets/Footer-Sticker SVG/footer-sticker-camera.svg" width={100} height={100} className="about-sticker about-sticker--camera wiggle-element" alt="" style={{ filter: 'invert(1)' }} aria-hidden="true" loading="lazy" />
                         </div>
                     </div>
 
                     <div className="about-hero__right">
                         <h1 className="about-hero__title">
                             SHAJAR ALI
-                            <Image src="/assets/Footer-Sticker SVG/footer-sticker-smiley.svg" width={80} height={80} className="about-hero__smiley wiggle-element" alt="" aria-hidden="true" />
+                            <Image src="/assets/Footer-Sticker SVG/footer-sticker-smiley.svg" width={80} height={80} className="about-hero__smiley wiggle-element" alt="" aria-hidden="true" loading="lazy" />
                         </h1>
                         <div className="about-hero__intro">
                             <h2 className="about-hero__intro-text">
@@ -45,7 +47,7 @@ export default function AboutHero() {
             </div>
 
             <div className="about-hero__bg-blob" aria-hidden="true">
-                <Image src="/assets/Service SVG/Service-card-pink-SVG.svg" width={600} height={600} alt="" />
+                <Image src="/assets/Service SVG/Service-card-pink-SVG.svg" width={600} height={600} alt="" loading="lazy" />
             </div>
             <div className="about-hero__bg-grid" aria-hidden="true"></div>
         </section>

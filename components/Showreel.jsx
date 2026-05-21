@@ -92,7 +92,7 @@ export default function Showreel() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [images.length]);
+  }, []);
 
   return (
     <div className="gsap-wrapper">

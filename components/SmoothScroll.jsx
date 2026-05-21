@@ -22,6 +22,10 @@ export default function SmoothScroll({ children }) {
         gsap.ticker.add(update);
         gsap.ticker.lagSmoothing(0);
 
+        if (lenisRef.current?.lenis) {
+            window.__lenis = lenisRef.current.lenis;
+        }
+
         // Dynamic Tab Title Change
         const originalTitle = document.title;
         const handleVisibility = () => {
@@ -44,6 +48,7 @@ export default function SmoothScroll({ children }) {
             document.removeEventListener('visibilitychange', handleVisibility);
             resizeObserver.disconnect();
             if (rafId) cancelAnimationFrame(rafId);
+            window.__lenis = null;
         };
     }, []);
 

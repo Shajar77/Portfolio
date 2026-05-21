@@ -15,6 +15,19 @@ export default function VimeoHero() {
     const [isMuted, setIsMuted] = useState(true);
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [videoSrc, setVideoSrc] = useState('');
+
+    useEffect(() => {
+        const loadVideo = () => {
+            setVideoSrc('/creative-bg-hero.mp4');
+        };
+        if (document.readyState === 'complete') {
+            loadVideo();
+        } else {
+            window.addEventListener('load', loadVideo);
+            return () => window.removeEventListener('load', loadVideo);
+        }
+    }, []);
 
     // Native video loads immediately enough that we don't need a heavy ready listener.
     // We already handle `setIsLoaded(true)` directly on the <video onLoadedData={...}> element.
@@ -29,70 +42,138 @@ export default function VimeoHero() {
         const controls = controlsRef.current;
         if (!bubble || !hero) return;
 
-        const xTo = gsap.quickTo(bubble, 'x', { duration: 0.5, ease: 'power3' });
-        const yTo = gsap.quickTo(bubble, 'y', { duration: 0.5, ease: 'power3' });
+        const ctx = gsap.context(() => {
+            const xTo = gsap.quickTo(bubble, 'x', { duration: 0.5, ease: 'power3' });
+            const yTo = gsap.quickTo(bubble, 'y', { duration: 0.5, ease: 'power3' });
 
-        const onMove = (e) => {
-            xTo(e.clientX + 13);
-            yTo(e.clientY - 43);
-        };
+            const onMove = (e) => {
+                xTo(e.clientX + 13);
+                yTo(e.clientY - 43);
+            };
 
-        const onEnter = () => {
-            gsap.killTweensOf(bubble, 'opacity,scale,rotation');
-            gsap.to(bubble, { opacity: 1, scale: 1, rotation: 0, duration: 1.7, delay: 0.05, ease: 'elastic.out(1, 0.4)' });
-        };
+            const onEnter = () => {
+                gsap.killTweensOf(bubble, 'opacity,scale,rotation');
+                gsap.to(bubble, { opacity: 1, scale: 1, rotation: 0, duration: 1.7, delay: 0.05, ease: 'elastic.out(1, 0.4)' });
+            };
 
-        const onLeave = () => {
-            gsap.killTweensOf(bubble, 'opacity,scale,rotation');
-            gsap.to(bubble, { opacity: 0, scale: 0, rotation: -30, duration: 0.3, ease: 'sine.inOut' });
-        };
+            const onLeave = () => {
+                gsap.killTweensOf(bubble, 'opacity,scale,rotation');
+                gsap.to(bubble, { opacity: 0, scale: 0, rotation: -30, duration: 0.3, ease: 'sine.inOut' });
+            };
 
-        const hideBubbleForElement = () => {
-            gsap.killTweensOf(bubble, 'opacity,scale,rotation');
-            gsap.to(bubble, { opacity: 0, scale: 0, rotation: -30, duration: 0.3, ease: 'sine.inOut' });
-        };
+            const hideBubbleForElement = () => {
+                gsap.killTweensOf(bubble, 'opacity,scale,rotation');
+                gsap.to(bubble, { opacity: 0, scale: 0, rotation: -30, duration: 0.3, ease: 'sine.inOut' });
+            };
 
-        const showBubbleForElement = () => {
-            gsap.killTweensOf(bubble, 'opacity,scale,rotation');
-            gsap.to(bubble, { opacity: 1, scale: 1, rotation: 0, duration: 0.3, ease: 'sine.inOut' });
-        };
+            const showBubbleForElement = () => {
+                gsap.killTweensOf(bubble, 'opacity,scale,rotation');
+                gsap.to(bubble, { opacity: 1, scale: 1, rotation: 0, duration: 0.3, ease: 'sine.inOut' });
+            };
 
-        const onTitleEnter = () => {
-            hideBubbleForElement();
-            if (controls) gsap.to(controls, { opacity: 0, duration: 0.3, pointerEvents: 'none' });
-        };
+            const onTitleEnter = () => {
+                hideBubbleForElement();
+                if (controls) gsap.to(controls, { opacity: 0, duration: 0.3, pointerEvents: 'none' });
+            };
 
-        const onTitleLeave = () => {
-            showBubbleForElement();
-            if (controls) gsap.to(controls, { opacity: 1, duration: 0.3, pointerEvents: 'auto' });
-        };
+            const onTitleLeave = () => {
+                showBubbleForElement();
+                if (controls) gsap.to(controls, { opacity: 1, duration: 0.3, pointerEvents: 'auto' });
+            };
 
-        window.addEventListener('mousemove', onMove, { passive: true });
-        hero.addEventListener('mouseenter', onEnter);
-        hero.addEventListener('mouseleave', onLeave);
-
-        if (title) {
-            title.addEventListener('mouseenter', onTitleEnter);
-            title.addEventListener('mouseleave', onTitleLeave);
-        }
-        if (controls) {
-            controls.addEventListener('mouseenter', hideBubbleForElement);
-            controls.addEventListener('mouseleave', showBubbleForElement);
-        }
-
-        return () => {
-            window.removeEventListener('mousemove', onMove);
-            hero.removeEventListener('mouseenter', onEnter);
-            hero.removeEventListener('mouseleave', onLeave);
+            window.addEventListener('mousemove', onMove, { passive: true });
+            hero.addEventListener('mouseenter', onEnter);
+            hero.addEventListener('mouseleave', onLeave);
 
             if (title) {
-                title.removeEventListener('mouseenter', onTitleEnter);
-                title.removeEventListener('mouseleave', onTitleLeave);
+                title.addEventListener('mouseenter', onTitleEnter);
+                title.addEventListener('mouseleave', onTitleLeave);
             }
             if (controls) {
-                controls.removeEventListener('mouseenter', hideBubbleForElement);
-                controls.removeEventListener('mouseleave', showBubbleForElement);
+                controls.addEventListener('mouseenter', hideBubbleForElement);
+                controls.addEventListener('mouseleave', showBubbleForElement);
             }
+
+            // Cleanup functions bound to elements inside this hook context
+            return () => {
+                window.removeEventListener('mousemove', onMove);
+                hero.removeEventListener('mouseenter', onEnter);
+                hero.removeEventListener('mouseleave', onLeave);
+
+                if (title) {
+                    title.removeEventListener('mouseenter', onTitleEnter);
+                    title.removeEventListener('mouseleave', onTitleLeave);
+                }
+                if (controls) {
+                    controls.removeEventListener('mouseenter', hideBubbleForElement);
+                    controls.removeEventListener('mouseleave', showBubbleForElement);
+                }
+            };
+        }, playerRef);
+
+        return () => ctx.revert();
+    }, []);
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const forceIntro = urlParams.get('intro') === 'true';
+        const hasVisited = sessionStorage.getItem('hasVisitedEntrance');
+        const isReload = typeof window !== 'undefined' &&
+            window.performance?.getEntriesByType('navigation')[0]?.type === 'reload';
+
+        const shouldPlayIntro = !hasVisited || forceIntro || isReload;
+
+        if (shouldPlayIntro) {
+            gsap.set('.vimeo-hero__word-animated', { yPercent: 120, opacity: 0 });
+            gsap.set('.home-header__smiley', { scale: 0, rotation: -90 });
+            gsap.set('.home-header__star', { scale: 0, rotation: -90 });
+            gsap.set('.home-header__title-line-svg', { strokeDashoffset: 600, strokeDasharray: 600, opacity: 0 });
+            gsap.set(playerRef.current, { scale: 1.08 });
+        }
+
+        const handleEntranceComplete = (e) => {
+            const isSkip = e?.detail?.skip;
+            const tl = gsap.timeline();
+
+            if (isSkip) {
+                tl.to('.vimeo-hero__word-animated', { yPercent: 0, opacity: 1, duration: 0.1, overwrite: 'auto' })
+                    .to('.home-header__smiley', { scale: 1, rotation: -30, duration: 0.1 }, 0)
+                    .to('.home-header__star', { scale: 1, rotation: 10, duration: 0.1 }, 0)
+                    .to('.home-header__title-line-svg', { strokeDashoffset: 0, opacity: 1, duration: 0.1 }, 0)
+                    .to(playerRef.current, { scale: 1, duration: 0.1 }, 0);
+            } else {
+                tl.to(playerRef.current, { scale: 1, duration: 1.6, ease: 'power4.out' }, 0)
+                    .to('.vimeo-hero__word-animated', {
+                        yPercent: 0,
+                        opacity: 1,
+                        duration: 1.2,
+                        stagger: 0.08,
+                        ease: 'power4.out'
+                    }, 0.1)
+                    .to('.home-header__smiley', {
+                        scale: 1,
+                        rotation: -30,
+                        duration: 1.4,
+                        ease: 'elastic.out(1, 0.4)'
+                    }, 0.5)
+                    .to('.home-header__star', {
+                        scale: 1,
+                        rotation: 10,
+                        duration: 1.4,
+                        ease: 'elastic.out(1, 0.4)'
+                    }, 0.8)
+                    .to('.home-header__title-line-svg', {
+                        strokeDashoffset: 0,
+                        opacity: 1,
+                        duration: 1.8,
+                        ease: 'power3.out'
+                    }, 0.9);
+            }
+        };
+
+        window.addEventListener('entrance-complete', handleEntranceComplete);
+        return () => {
+            window.removeEventListener('entrance-complete', handleEntranceComplete);
         };
     }, []);
 
@@ -172,13 +253,12 @@ export default function VimeoHero() {
             >
                 <video
                     ref={iframeRef}
-                    src="/20563164-uhd_3840_2160_30fps (1).mp4"
+                    src={videoSrc || undefined}
                     autoPlay
                     loop
                     muted
                     playsInline
-                    preload="auto"
-                    fetchPriority="high"
+                    preload="metadata"
                     className="vimeo-hero__iframe"
                     style={{ objectFit: 'cover' }}
                 />
@@ -191,58 +271,73 @@ export default function VimeoHero() {
                     <h1 className="vimeo-hero__title" ref={titleRef} onClick={(e) => e.stopPropagation()}>
 
                         {/* "i" */}
-                        <span className="vimeo-hero__word">i </span>
+                        <span className="vimeo-hero__title-mask">
+                            <span className="vimeo-hero__word vimeo-hero__word-animated">i&nbsp;</span>
+                        </span>
 
-                        {/* "craft" + ⑤ smiley (no animation) */}
-                        <span className="vimeo-hero__word is--relative">
-                            <span>craft </span>
-                            <div className="home-header__smiley">
-                                <Image
-                                    src="/assets/VimeoHero SVG/smiley-face.svg"
-                                    alt=""
-                                    className="home-header__smiley-svg"
-                                    width={100}
-                                    height={100}
-                                    aria-hidden="true"
-                                />
-                            </div>
+                        {/* "craft" + ⑤ smiley */}
+                        <span className="vimeo-hero__title-mask" style={{ overflow: 'visible' }}>
+                            <span className="vimeo-hero__word vimeo-hero__word-animated is--relative" style={{ display: 'inline-flex', alignItems: 'center', overflow: 'visible' }}>
+                                <span>craft&nbsp;</span>
+                                <div className="home-header__smiley" style={{ transformOrigin: 'center center' }}>
+                                    <Image
+                                        src="/assets/VimeoHero SVG/smiley-face.svg"
+                                        alt=""
+                                        className="home-header__smiley-svg"
+                                        width={100}
+                                        height={100}
+                                        aria-hidden="true"
+                                        priority
+                                    />
+                                </div>
+                            </span>
                         </span>
 
                         {/* "creative" italic */}
-                        <span className="vimeo-hero__word"><em>creative </em></span>
+                        <span className="vimeo-hero__title-mask">
+                            <span className="vimeo-hero__word vimeo-hero__word-animated"><em>creative&nbsp;</em></span>
+                        </span>
 
                         {/* "interfaces" */}
-                        <span className="vimeo-hero__word">interfaces </span>
+                        <span className="vimeo-hero__title-mask">
+                            <span className="vimeo-hero__word vimeo-hero__word-animated">interfaces</span>
+                        </span>
 
                         <div style={{ flexBasis: '100%', height: 0 }} />
 
                         {/* "&" */}
-                        <span className="vimeo-hero__word">& </span>
+                        <span className="vimeo-hero__title-mask">
+                            <span className="vimeo-hero__word vimeo-hero__word-animated">&amp;&nbsp;</span>
+                        </span>
 
-                        {/* "blockchain" + ⑤ pink star (no spin) + oval underline */}
-                        <span className="vimeo-hero__word is--relative">
-                            <div className="home-header__star">
-                                <div className="home-header__star-inner">
-                                    <Image
-                                        src="/assets/VimeoHero SVG/pink-star.svg"
-                                        alt=""
-                                        className="home-header__star-svg"
-                                        width={100}
-                                        height={100}
-                                        aria-hidden="true"
-                                    />
+                        {/* "blockchain" + ⑤ pink star + oval underline */}
+                        <span className="vimeo-hero__title-mask" style={{ overflow: 'visible' }}>
+                            <span className="vimeo-hero__word vimeo-hero__word-animated is--relative" style={{ display: 'inline-flex', alignItems: 'center', overflow: 'visible' }}>
+                                <div className="home-header__star" style={{ transformOrigin: 'center center' }}>
+                                    <div className="home-header__star-inner">
+                                        <Image
+                                            src="/assets/VimeoHero SVG/pink-star.svg"
+                                            alt=""
+                                            className="home-header__star-svg"
+                                            width={100}
+                                            height={100}
+                                            aria-hidden="true"
+                                            priority
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                            {/* Oval underline */}
-                            <Image
-                                src="/assets/VimeoHero SVG/oval-underline.svg"
-                                alt=""
-                                className="home-header__title-line-svg"
-                                width={500}
-                                height={200}
-                                aria-hidden="true"
-                            />
-                            <span>blockchains</span>
+                                {/* Oval underline */}
+                                <Image
+                                    src="/assets/VimeoHero SVG/oval-underline.svg"
+                                    alt=""
+                                    className="home-header__title-line-svg"
+                                    width={500}
+                                    height={200}
+                                    aria-hidden="true"
+                                    priority
+                                />
+                                <span>blockchains</span>
+                            </span>
                         </span>
 
                     </h1>

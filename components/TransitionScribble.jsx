@@ -6,11 +6,11 @@ import { ANIMATION_CONFIG } from '@/lib/data';
 
 export default function TransitionScribble() {
     useEffect(() => {
-        const logoTruusClickable = document.querySelector('.logo-truus');
+        const logoShajarClickable = document.querySelector('.logo-shajar');
         const transitionScribblePath = document.querySelector('.transition-scribble path');
         const transitionScribbleSvg = document.querySelector('.transition-scribble');
 
-        if (!logoTruusClickable || !transitionScribblePath || !transitionScribbleSvg) return;
+        if (!logoShajarClickable || !transitionScribblePath || !transitionScribbleSvg) return;
 
         const transitionColors = [
             'var(--color-green)', 'var(--color-lightblue)', 'var(--color-darkblue)',
@@ -55,7 +55,7 @@ export default function TransitionScribble() {
                 textEl.style.cssText = 'font-family:Epilogue, sans-serif; font-weight:800; font-size:4rem; white-space:nowrap; margin:0; text-transform:uppercase; letter-spacing:-0.05em;';
                 transitionLogo.appendChild(textEl);
             } else {
-                const logoClone = document.querySelector('.logo-truus').cloneNode(true);
+                const logoClone = document.querySelector('.logo-shajar').cloneNode(true);
                 logoClone.style.width = '110px';
                 logoClone.style.height = 'auto';
                 transitionLogo.appendChild(logoClone);
@@ -120,7 +120,7 @@ export default function TransitionScribble() {
             }, durIn + (durOut * 0.48));
         };
 
-        logoTruusClickable.addEventListener('click', (e) => runScribbleAnimation(e, { scrollToTop: true, text: null }));
+        logoShajarClickable.addEventListener('click', (e) => runScribbleAnimation(e, { scrollToTop: true, text: null }));
 
         // Listen for global trigger
         const handleGlobalTrigger = (e) => {
@@ -133,13 +133,9 @@ export default function TransitionScribble() {
         };
         window.addEventListener('run-scribble', handleGlobalTrigger);
 
-        // Auto-run on load
-        const timer = setTimeout(() => runScribbleAnimation(null, { scrollToTop: true, text: null }), 100);
-
         return () => {
-            logoTruusClickable.removeEventListener('click', runScribbleAnimation);
+            logoShajarClickable.removeEventListener('click', runScribbleAnimation);
             window.removeEventListener('run-scribble', handleGlobalTrigger);
-            clearTimeout(timer);
         };
     }, []);
 

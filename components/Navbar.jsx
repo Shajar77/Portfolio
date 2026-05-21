@@ -10,6 +10,34 @@ import Image from 'next/image';
 
 export default function Navbar({ forceTheme }) {
     useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const forceIntro = urlParams.get('intro') === 'true';
+        const hasVisited = sessionStorage.getItem('hasVisitedEntrance');
+        const isReload = typeof window !== 'undefined' && 
+            window.performance?.getEntriesByType('navigation')[0]?.type === 'reload';
+
+        const shouldPlayIntro = !hasVisited || forceIntro || isReload;
+
+        if (shouldPlayIntro) {
+            gsap.set('.navbar', { y: -80, opacity: 0 });
+        }
+
+        const handleEntranceComplete = (e) => {
+            const isSkip = e?.detail?.skip;
+            if (isSkip) {
+                gsap.to('.navbar', { y: 0, opacity: 1, duration: 0.1, overwrite: 'auto' });
+            } else {
+                gsap.to('.navbar', { y: 0, opacity: 1, duration: 1.4, ease: 'power4.out', delay: 0.3 });
+            }
+        };
+
+        window.addEventListener('entrance-complete', handleEntranceComplete);
+        return () => {
+            window.removeEventListener('entrance-complete', handleEntranceComplete);
+        };
+    }, []);
+
+    useEffect(() => {
         const navbar = document.querySelector('.navbar');
         const contentSection = document.querySelector('.content-section');
         const footerEl = document.querySelector('.main-footer');
@@ -290,7 +318,7 @@ export default function Navbar({ forceTheme }) {
                 <div className="nav-left">
                     <div className="nav-hover-trigger">
                         <div className="logo-work-container">
-                            <Image src="/assets/Navbar SVG/nav-work-blob.svg" width={60} height={55} className="nav-bar__work-blob-svg" alt="" aria-hidden="true" />
+                            <Image src="/assets/Navbar SVG/nav-work-blob.svg" width={60} height={55} className="nav-bar__work-blob-svg" alt="" aria-hidden="true" priority />
                             <span className="logo-work-text">work</span>
                         </div>
 
@@ -299,7 +327,7 @@ export default function Navbar({ forceTheme }) {
                             <div className="nav-popout-inner">
                                 <div className="nav-work-item">
                                     <div className="nav-work-item__img-wrap">
-                                        <Image src="/{7BAFD691-8F99-44D9-AE2C-767531586372}.png" loading="eager" width={400} height={300} alt="CSTATE RWA Platform" className="nav-work-item__img" />
+                                        <Image src="/{7BAFD691-8F99-44D9-AE2C-767531586372}.png" loading="lazy" width={400} height={300} alt="CSTATE RWA Platform" className="nav-work-item__img" />
                                     </div>
                                     <div className="nav-work-item__text">
                                         <span className="nav-work-badge badge-maroon">blockchain</span>
@@ -308,7 +336,7 @@ export default function Navbar({ forceTheme }) {
                                 </div>
                                 <div className="nav-work-item">
                                     <div className="nav-work-item__img-wrap">
-                                        <Image src="/{1BF58C71-5819-443C-B922-133885D5B2B9}.png" loading="eager" width={400} height={300} alt="HNTRS NFT Platform" className="nav-work-item__img" />
+                                        <Image src="/{1BF58C71-5819-443C-B922-133885D5B2B9}.png" loading="lazy" width={400} height={300} alt="HNTRS NFT Platform" className="nav-work-item__img" />
                                     </div>
                                     <div className="nav-work-item__text">
                                         <span className="nav-work-badge badge-pink">web3</span>
@@ -317,7 +345,7 @@ export default function Navbar({ forceTheme }) {
                                 </div>
                                 <div className="nav-work-item">
                                     <div className="nav-work-item__img-wrap">
-                                        <Image src="/{E6CB1B12-38C5-49DA-82C1-C2B52A399A42}.png" loading="eager" width={400} height={300} alt="Fundverse Crowdfunding" className="nav-work-item__img" />
+                                        <Image src="/{E6CB1B12-38C5-49DA-82C1-C2B52A399A42}.png" loading="lazy" width={400} height={300} alt="Fundverse Crowdfunding" className="nav-work-item__img" />
                                     </div>
                                     <div className="nav-work-item__text">
                                         <span className="nav-work-badge badge-pink">dapp</span>
@@ -341,10 +369,10 @@ export default function Navbar({ forceTheme }) {
                         {/* Pop-out Box for Right Side */}
                         <div className="nav-popout nav-wa-box">
                             <div className="nav-popout-inner">
-                                <Image src="/assets/wa_qr_code.png" width={150} height={150} className="nav-wa-qr" alt="WhatsApp QR Code" />
+                                <Image src="/WhatsApp Image 2026-05-21 at 1.32.57 PM.jpeg" width={150} height={150} className="nav-wa-qr" alt="WhatsApp QR Code" />
                                 <h4 className="nav-wa-title">whatsapp us</h4>
                                 <p className="nav-wa-desc">Scan the QR code to chat with us via your smartphone.</p>
-                                <a href="#" className="nav-wa-link">
+                                <a href="https://wa.me/923211688059" target="_blank" rel="noopener noreferrer" className="nav-wa-link">
                                     <span className="nav-wa-link-text">Chat via desktop</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 169 10" fill="none" className="draw-btn__svg nav-wa-link-svg">
                                         <path d="M1 6.5661C56.3941 3.06082 112.187 1.20095 168 0.999878" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" />
